@@ -2,14 +2,15 @@
   "name": "scribe-app",
   "productName": "scribe-app",
   "version": "1.0.0",
-  "description": "My Electron application description",
+  "description": "An alternative word processor designed for creative writers.",
   "main": "src/index.js",
   "scripts": {
-    "start": "electron-forge start",
-    "package": "electron-forge package",
-    "make": "electron-forge make",
-    "publish": "electron-forge publish",
-    "lint": "echo \"No linting configured\""
+    "dev-start": "electron-forge start",
+    "dev-package": "electron-forge package",
+    "dev-make": "electron-forge make",
+    "dev-publish": "electron-forge publish",
+    "dev-lint": "echo \"No linting configured\"",
+    "dev-sass": "node-sass --output-style compressed --watch src -o src"
   },
   "keywords": [],
   "author": {
@@ -53,6 +54,8 @@
     "@electron-forge/maker-rpm": "6.0.0-beta.51",
     "@electron-forge/maker-squirrel": "6.0.0-beta.51",
     "@electron-forge/maker-zip": "6.0.0-beta.51",
-    "electron": "9.0.3"
+    "electron": "9.0.3",
+    "electron-rebuild": "^1.11.0",
+    "node-sass": "^4.14.1"
   }
 }
