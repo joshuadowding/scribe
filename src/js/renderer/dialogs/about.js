@@ -3,7 +3,7 @@ module.exports = { init }
 const { BrowserWindow } = require('electron');
 const path = require('path');
 
-const editor = require ('../../renderer').editor;
+const editor = require('../../renderer').editor;
 
 function init() {
   if (exports.about) {
@@ -27,5 +27,10 @@ function init() {
 
   window.setAlwaysOnTop(true);
   window.setMenuBarVisibility(false);
+
+  window.once('closed', () => {
+    exports.about = null;
+  });
+
   window.loadFile(path.join(__dirname, '../../../html/dialogs/about.html'));
 }

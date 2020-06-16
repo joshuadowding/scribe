@@ -21,5 +21,9 @@ function init() {
     webPreferences: { nodeIntegration: true }
   });
 
+  window.once('closed', () => {
+    exports.editor = null;
+  });
+
   window.loadFile(path.join(__dirname, '../../html/index.html'));
 }
