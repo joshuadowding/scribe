@@ -1,20 +1,18 @@
 module.exports = { init }
 
 const { app, Menu } = require('electron');
+const about = require('../renderer/dialogs/about');
+
+const template = [{
+    label: 'Scribe',
+    submenu: [
+      { label: 'About', click: () => about.init() },
+      { label: 'Quit', click: () => app.quit() }
+    ]
+  }
+];
 
 function init() {
-  let menu = Menu.buildFromTemplate(build());
+  let menu = Menu.buildFromTemplate(template);
   Menu.setApplicationMenu(menu);
-}
-
-function build() {
-  return [
-    {
-      label: 'Scribe',
-      submenu: [
-        { label: 'About' },
-        { label: 'Quit', click: () => app.quit() }
-      ]
-    }
-  ];
 }
