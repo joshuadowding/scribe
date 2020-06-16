@@ -1,7 +1,11 @@
 :root {
-
+  body {
+    background-color: white;
+  }
 }
 
 :root.theme-dark {
-
+  body {
+    background-color: black;
+  }
 }

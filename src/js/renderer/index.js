@@ -27,6 +27,12 @@ function init() {
     exports.editor = null;
   });
 
+  window.webContents.on('did-finish-load', () => {
+
+  });
+
+  window.webContents.openDevTools();
+
   window.loadFile(path.join(__dirname, '../../html/index.html')).then(() => {
     menu.init();
   });
