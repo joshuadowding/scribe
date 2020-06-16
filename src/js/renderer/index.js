@@ -1,7 +1,6 @@
 module.exports = { init }
 
 const { BrowserWindow } = require('electron');
-
 const path = require('path');
 
 function init() {
