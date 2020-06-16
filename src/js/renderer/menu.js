@@ -1,7 +1,7 @@
 module.exports = { init }
 
 const { app, Menu } = require('electron');
-const about = require('../renderer/dialogs/about');
+const about = require('./dialogs/about');
 
 const template = [{
     label: 'Scribe',

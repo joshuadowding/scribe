@@ -3,6 +3,8 @@ module.exports = { init }
 const { BrowserWindow } = require('electron');
 const path = require('path');
 
+const menu = require('./menu');
+
 function init() {
   if (exports.editor) {
     return exports.editor.show();
@@ -25,5 +27,9 @@ function init() {
     exports.editor = null;
   });
 
-  window.loadFile(path.join(__dirname, '../../html/index.html'));
+  window.loadFile(path.join(__dirname, '../../html/index.html')).then(() => {
+    menu.init();
+  });
 }
+
+

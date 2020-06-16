@@ -1,3 +1,11 @@
+@import 'common';
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   margin: auto;

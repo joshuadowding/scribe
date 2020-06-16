@@ -25,12 +25,12 @@ function init() {
     webPreferences: { nodeIntegration: true }
   });
 
-  window.setAlwaysOnTop(true);
-  window.setMenuBarVisibility(false);
-
   window.once('closed', () => {
     exports.about = null;
   });
 
-  window.loadFile(path.join(__dirname, '../../../html/dialogs/about.html'));
+  window.loadFile(path.join(__dirname, '../../../html/dialogs/about.html')).then(() => {
+    window.setAlwaysOnTop(true);
+    window.setMenuBarVisibility(false);
+  });
 }
