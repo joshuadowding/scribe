@@ -2,6 +2,7 @@ const { app, BrowserWindow } = require('electron');
 
 const main = require('./js/main/index');
 const renderer = require('./js/renderer/index');
+const config = require('./js/config');
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling:
 if(require('electron-squirrel-startup')) {
@@ -28,6 +29,7 @@ app.on('window-all-closed', () => {
 // code. You can also put them in separate files and import them here.
 
 function init() {
+  config.init();
   main.init();
   renderer.init();
 }

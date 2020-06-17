@@ -1,8 +1,9 @@
 module.exports = { init }
 
 const { app, Menu } = require('electron');
+
 const about = require('./dialogs/about');
-const theme = require('./theme');
+const config = require('../config');
 
 const template = [{
     label: 'Scribe',
@@ -13,9 +14,9 @@ const template = [{
   }, {
     label: 'View',
     submenu: [
-      { label: 'Toggle Light/Dark Theme', click: () => theme.toggleTheme() },
+      { label: 'Toggle Light/Dark Theme', click: () => toggleTheme() },
       { type: 'separator' },
-      { label: 'Toggle OS-based Theme', click: () => theme.detectTheme() },
+      { label: 'Toggle OS-based Theme', click: () => detectTheme() },
       { label: 'Toggle Time-based Theme' }
     ]
   }
@@ -24,4 +25,14 @@ const template = [{
 function init() {
   let menu = Menu.buildFromTemplate(template);
   Menu.setApplicationMenu(menu);
+}
+
+function toggleTheme() {
+  // TODO: Support sending a signal to the renderer process to toggle the theme.
+  config.getWindow('Editor').webContents.send('toggle-theme', 'Test');
+}
+
+function detectTheme() {
+  // TODO: Support sending a signal to the renderer process to toggle the theme.
+  config.getWindow('Editor').webContents.send('detect-theme', 'Test');
 }

@@ -18,6 +18,10 @@
         const theme = require('../js/renderer/theme');
         theme.detectTheme();
       });
+
+      require('electron').ipcRenderer.on('toggle-theme', (event, message) => {
+        console.log(message);
+      });
     </script>
   </body>
 </html>

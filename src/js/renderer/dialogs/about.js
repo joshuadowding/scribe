@@ -3,14 +3,14 @@ module.exports = { init }
 const { BrowserWindow } = require('electron');
 const path = require('path');
 
-const editor = require('../../renderer').editor;
+const config = require('../../config');
 
 function init() {
-  if (exports.about) {
-    return exports.about.show();
+  if (config.getWindow('About')) {
+    return config.getWindow('About').show();
   }
 
-  const window = exports.about = new BrowserWindow({
+  const window = new BrowserWindow({
     width: 480,
     height: 320,
     resizable: false,
@@ -21,16 +21,20 @@ function init() {
     center: true,
     fullscreen: false,
     modal: true,
-    parent: editor,
+    parent: config.getWindow('Editor'),
     webPreferences: { nodeIntegration: true }
   });
 
   window.once('closed', () => {
-    exports.about = null;
+    config.removeWindow('About');
   });
 
   window.loadFile(path.join(__dirname, '../../../html/dialogs/about.html')).then(() => {
     window.setAlwaysOnTop(true);
     window.setMenuBarVisibility(false);
+  });
+
+  window.webContents.on('did-finish-load', () => {
+    config.addWindow('About', window);
   });
 }

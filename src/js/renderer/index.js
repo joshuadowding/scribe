@@ -3,14 +3,15 @@ module.exports = { init }
 const { BrowserWindow } = require('electron');
 const path = require('path');
 
+const config = require('../config');
 const menu = require('./menu');
 
 function init() {
-  if (exports.editor) {
-    return exports.editor.show();
+  if (config.getWindow('Editor')) {
+    return config.getWindow('Editor').show();
   }
 
-  const window = exports.editor = new BrowserWindow({
+  const window = new BrowserWindow({
     width: 1024,
     height: 600,
     resizable: true,
@@ -24,18 +25,18 @@ function init() {
   });
 
   window.once('closed', () => {
-    exports.editor = null;
+    config.removeWindow('Editor');
   });
-
-  window.webContents.on('did-finish-load', () => {
-
-  });
-
-  window.webContents.openDevTools();
 
   window.loadFile(path.join(__dirname, '../../html/index.html')).then(() => {
     menu.init();
   });
+
+  window.webContents.on('did-finish-load', () => {
+    config.addWindow('Editor', window);
+  });
+
+  window.webContents.openDevTools();
 }
 
 
