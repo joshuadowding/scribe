@@ -1,6 +1,6 @@
 module.exports = { init }
 
-const { BrowserWindow } = require('electron');
+const { BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 
 const config = require('../config');
@@ -34,6 +34,10 @@ function init() {
 
   window.webContents.on('did-finish-load', () => {
     config.addWindow('Editor', window);
+  });
+
+  ipcMain.on('current-theme', (event, message) => {
+    config.setCurrentTheme(message);
   });
 }
 

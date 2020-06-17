@@ -7,7 +7,7 @@ const config = require('../config');
 
 let toggleDevTools = false;
 
-const template = [
+let template = Menu.buildFromTemplate([
   {
     label: 'Scribe',
     submenu: [
@@ -53,13 +53,17 @@ const template = [
         label: 'Theme',
         submenu: [
           {
-            label: 'Toggle Theme', click: () => {
+            id: 'toggle-theme', label: 'Toggle Theme', click: () => {
               config.getWindow('Editor').webContents.send('toggle-theme');
+              template.getMenuItemById('detect-theme').checked = false;
+              config.setDetectTheme(false);
             }
           },
           {
-            label: 'Detect Theme', click: () => {
+            id: 'detect-theme', label: 'Detect Theme', type: 'checkbox', click: () => {
               config.getWindow('Editor').webContents.send('detect-theme');
+              template.getMenuItemById('toggle-theme').checked = false;
+              config.setDetectTheme(!config.getDetectTheme());
             }
           }
         ]
@@ -84,9 +88,8 @@ const template = [
       }
     ]
   }
-];
+]);
 
 function init() {
-  let menu = Menu.buildFromTemplate(template);
-  Menu.setApplicationMenu(menu);
+  Menu.setApplicationMenu(template);
 }

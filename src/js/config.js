@@ -1,23 +1,43 @@
-module.exports = { init, getWindow, addWindow, removeWindow }
+module.exports = { init, getWindow, addWindow, removeWindow, getCurrentTheme, setCurrentTheme, getDetectTheme, setDetectTheme }
 
-let windows;
+let currentWindows;
+let currentTheme;
+let detectTheme;
 
 function init() {
-  windows = new Map();
+  currentWindows = new Map();
 }
 
 function getWindow(name) {
-  if (windows.has(name)) {
-    return windows.get(name);
+  if (currentWindows.has(name)) {
+    return currentWindows.get(name);
   }
 }
 
 function addWindow(name, window) {
-  windows.set(name, window);
+  currentWindows.set(name, window);
 }
 
 function removeWindow(name) {
-  if (windows.has(name)) {
-    windows.delete(name);
+  if (currentWindows.has(name)) {
+    currentWindows.delete(name);
   }
+}
+
+function setCurrentTheme(name) {
+  if (name === 'Dark' || name === 'Light') {
+    currentTheme = name;
+  }
+}
+
+function getCurrentTheme() {
+  return currentTheme;
+}
+
+function setDetectTheme(boolean) {
+  detectTheme = boolean;
+}
+
+function getDetectTheme() {
+  return detectTheme;
 }
