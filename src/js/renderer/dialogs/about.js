@@ -29,9 +29,10 @@ function init() {
     config.removeWindow('About');
   });
 
+  window.setMenuBarVisibility(false);
+
   window.loadFile(path.join(__dirname, '../../../html/dialogs/about.html')).then(() => {
     window.setAlwaysOnTop(true);
-    window.setMenuBarVisibility(false);
   });
 
   window.webContents.on('did-finish-load', () => {
