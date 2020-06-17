@@ -1,1 +1,1 @@
-:root.theme-dark{background-color:black}*,*::after,*::before{box-sizing:border-box}body{font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;margin:auto;max-width:38rem;padding:2rem}
+:root body{background-color:#F5F5F5}:root.theme-dark body{background-color:#1A1A1A}*,*::after,*::before{box-sizing:border-box}body{font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;margin:auto;max-width:38rem;padding:2rem}

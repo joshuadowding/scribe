@@ -10,7 +10,7 @@
     "dev-make": "electron-forge make",
     "dev-publish": "electron-forge publish",
     "dev-lint": "echo \"No linting configured\"",
-    "dev-watch": "node-sass --output-style compressed --watch src -o src"
+    "dev-watch": "node-sass --output-style compressed --watch src/css -o src/css"
   },
   "keywords": [],
   "author": {
