@@ -36,7 +36,7 @@ function init() {
     config.addWindow('Editor', window);
   });
 
-  window.webContents.openDevTools();
+  //window.webContents.openDevTools();
 }
 
 

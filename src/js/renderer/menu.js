@@ -14,10 +14,12 @@ const template = [{
   }, {
     label: 'View',
     submenu: [
-      { label: 'Toggle Light/Dark Theme', click: () => toggleTheme() },
-      { type: 'separator' },
-      { label: 'Toggle OS-based Theme', click: () => detectTheme() },
-      { label: 'Toggle Time-based Theme' }
+      { label: 'Toggle Light/Dark Theme', click: () => {
+        config.getWindow('Editor').webContents.send('toggle-theme');
+      }},
+      { label: 'Detect OS-based Theme', click: () => {
+        config.getWindow('Editor').webContents.send('detect-theme');
+      }}
     ]
   }
 ];
@@ -25,14 +27,4 @@ const template = [{
 function init() {
   let menu = Menu.buildFromTemplate(template);
   Menu.setApplicationMenu(menu);
-}
-
-function toggleTheme() {
-  // TODO: Support sending a signal to the renderer process to toggle the theme.
-  config.getWindow('Editor').webContents.send('toggle-theme', 'Test');
-}
-
-function detectTheme() {
-  // TODO: Support sending a signal to the renderer process to toggle the theme.
-  config.getWindow('Editor').webContents.send('detect-theme', 'Test');
 }

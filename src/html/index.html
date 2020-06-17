@@ -14,14 +14,15 @@
     <script type="text/javascript" src="../lib/jquery-3.5.1.min.js" onload="window.$ = window.jQuery = module.exports;"></script>
 
     <script type="text/javascript">
+      const ipc = require('electron').ipcRenderer;
+      const theme = require('../js/renderer/theme');
+
       $(document).ready(function() {
-        const theme = require('../js/renderer/theme');
         theme.detectTheme();
       });
 
-      require('electron').ipcRenderer.on('toggle-theme', (event, message) => {
-        console.log(message);
-      });
+      ipc.on('toggle-theme', () => { theme.toggleTheme(); });
+      ipc.on('detect-theme', () => { theme.detectTheme(); });
     </script>
   </body>
 </html>
