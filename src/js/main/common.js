@@ -16,7 +16,7 @@ function createDataDirectory(path) {
 
 function createSettingsFile(path) {
   let success = false;
-  fs.writeFile(path, '{}', 'utf8', (error, data) => {
+  fs.writeFile(path, '{}', 'utf8', (error) => {
     if (error) { console.error(error); }
     else { success = true; }
   });

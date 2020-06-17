@@ -7,34 +7,81 @@ const config = require('../config');
 
 let toggleDevTools = false;
 
-const template = [{
+const template = [
+  {
     label: 'Scribe',
     submenu: [
       { label: 'About', click: () => about.init() },
-      { label: 'Quit', click: () => app.quit() }
+      { label: 'Quit', role: 'close', click: () => app.quit() }
     ]
-  }, {
+  },
+  {
+    label: 'Edit',
+    submenu: [
+      { label: 'Undo', role: 'undo' },
+      { label: 'Redo', role: 'redo', },
+      { type: 'separator' },
+      { label: 'Cut', role: 'cut' },
+      { label: 'Copy', role: 'copy' },
+      { label: 'Paste', role: 'paste' },
+      { label: 'Delete', role: 'delete' },
+      { type: 'separator' },
+      { label: 'Select All', role: 'selectall' }
+    ]
+  },
+  {
     label: 'View',
     submenu: [
-      { label: 'Toggle Light/Dark Theme', click: () => {
-        config.getWindow('Editor').webContents.send('toggle-theme');
-      }},
-      { label: 'Detect OS-based Theme', click: () => {
-        config.getWindow('Editor').webContents.send('detect-theme');
-      }}
+      {
+        label: 'Full Screen', type: 'checkbox',
+        accelerator: process.platform === 'darwin' ? 'Ctrl+Command+F' : 'F11',
+        click: () => {
+          let editor = config.getWindow('Editor');
+          editor.setFullScreen(!editor.isFullScreen());
+        }
+      },
+      {
+        label: 'Float Window', type: 'checkbox',
+        accelerator: process.platform === 'darwin' ? 'Ctrl+Command+W' : 'F10',
+        click: () => {
+          let editor = config.getWindow('Editor');
+          editor.setAlwaysOnTop(!editor.isAlwaysOnTop());
+        }
+      },
+      { type: 'separator' },
+      {
+        label: 'Theme',
+        submenu: [
+          {
+            label: 'Toggle Theme', click: () => {
+              config.getWindow('Editor').webContents.send('toggle-theme');
+            }
+          },
+          {
+            label: 'Detect Theme', click: () => {
+              config.getWindow('Editor').webContents.send('detect-theme');
+            }
+          }
+        ]
+      }
     ]
-  }, {
+  },
+  {
     label: 'Help',
     submenu: [
-      { label: 'Toggle DevTools', type: 'checkbox', click: () => {
-        if (!toggleDevTools) {
-          config.getWindow('Editor').webContents.openDevTools();
-          toggleDevTools = true;
-        } else {
-          config.getWindow('Editor').webContents.closeDevTools();
-          toggleDevTools = false;
+      {
+        label: 'Toggle Developer Tools',
+        accelerator: process.platform === 'darwin' ? 'Ctrl+Command+D' : 'F12',
+        click: () => {
+          if (!toggleDevTools) {
+            toggleDevTools = true;
+            config.getWindow('Editor').webContents.openDevTools();
+          } else {
+            toggleDevTools = false;
+            config.getWindow('Editor').webContents.closeDevTools();
+          }
         }
-      }}
+      }
     ]
   }
 ];
