@@ -33,6 +33,7 @@ function init() {
 
   window.loadFile(path.join(__dirname, '../../../html/dialogs/about.html')).then(() => {
     window.setAlwaysOnTop(true);
+    window.webContents.send('choose-theme', config.getCurrentTheme());
   });
 
   window.webContents.on('did-finish-load', () => {

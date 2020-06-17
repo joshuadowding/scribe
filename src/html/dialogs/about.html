@@ -14,8 +14,11 @@
     <script type="text/javascript" src="../../lib/jquery-3.5.1.min.js" onload="window.$ = window.jQuery = module.exports;"></script>
 
     <script type="text/javascript">
-      $(document).ready(function() {
-        require('../../js/renderer/theme').detectTheme();
+      const ipc = require('electron').ipcRenderer;
+      const theme = require('../../js/renderer/theme');
+
+      ipc.on('choose-theme', (event, message) => {
+        theme.chooseTheme(message);
       });
     </script>
   </body>

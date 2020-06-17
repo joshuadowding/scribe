@@ -1,11 +1,29 @@
+$L1: #FFFFFF; // White
+$L2: #EEF1F4; // White (Dark)
+$L3: #707070; // Grey (Light)
+$D1: #272727; // Grey (Dark)
+$D2: #191919; // Black (Light)
+$D3: #000000; // Black
+$B1: #3095E5; // Blue
+
 :root {
-  body {
-    background-color: #F5F5F5;
-  }
+  --background-colour: #{$L2};
+  --foreground-colour: #{$L1};
+
+  --link-colour: #{$B1};
+  --text-colour: #{$D2};
+
+  --link-colour-disabled: #{$L3};
+  --text-colour-invert: #{$L1};
 }
 
 :root.theme-dark {
-  body {
-    background-color: #1A1A1A;
-  }
+  --background-colour: #{$D1};
+  --foreground-colour: #{$D2};
+
+  --link-colour: #{$B1};
+  --text-colour: #{$L1};
+
+  --link-colour-disabled: #{$L3};
+  --text-colour-invert: #{$D2};
 }

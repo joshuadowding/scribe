@@ -1,6 +1,6 @@
 module.exports = { init }
 
-const { BrowserWindow, ipcMain } = require('electron');
+const { BrowserWindow, ipcMain, nativeTheme } = require('electron');
 const path = require('path');
 
 const config = require('../config');
@@ -38,6 +38,14 @@ function init() {
 
   ipcMain.on('current-theme', (event, message) => {
     config.setCurrentTheme(message);
+
+    if (message === 'Dark') {
+      nativeTheme.themeSource = 'dark';
+    } else if (message === 'Light') {
+      nativeTheme.themeSource = 'light';
+    } else {
+      nativeTheme.themeSource = 'system';
+    }
   });
 }
 

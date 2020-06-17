@@ -10,6 +10,8 @@
     <h1>💖 Hello World!</h1>
     <p>Welcome to your Electron application.</p>
 
+
+
     <!-- Fix: https://github.com/electron/electron/issues/345 -->
     <script type="text/javascript" src="../lib/jquery-3.5.1.min.js" onload="window.$ = window.jQuery = module.exports;"></script>
 
@@ -17,12 +19,12 @@
       const ipc = require('electron').ipcRenderer;
       const theme = require('../js/renderer/theme');
 
-      /* Detect the system theme preference on-startup:
+      // Detect the system theme preference on-startup:
       $(document).ready(function() {
         let currentTheme = theme.detectTheme();
         theme.chooseTheme(currentTheme);
         ipc.send('current-theme', currentTheme); // Report the detected theme preference on-startup.
-      }); */
+      });
 
       ipc.on('toggle-theme', () => {
         ipc.send('current-theme', theme.toggleTheme());
