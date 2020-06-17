@@ -35,8 +35,6 @@ function init() {
   window.webContents.on('did-finish-load', () => {
     config.addWindow('Editor', window);
   });
-
-  //window.webContents.openDevTools();
 }
 
 
