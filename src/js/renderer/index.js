@@ -1,6 +1,6 @@
 module.exports = { init }
 
-const { BrowserWindow, ipcMain, nativeTheme } = require('electron');
+const { app, BrowserWindow, ipcMain, nativeTheme, dialog } = require('electron');
 const path = require('path');
 
 const config = require('../config');
@@ -34,6 +34,15 @@ function init() {
 
   window.webContents.on('did-finish-load', () => {
     config.addWindow('Editor', window);
+  });
+
+  window.on('close', (event) => {
+    event.preventDefault();
+
+    const options = { type: 'question', buttons: ['Yes', 'No'], title: 'Quit', message: 'Are you sure you\'d like to quit Scribe?' }
+    const response = dialog.showMessageBoxSync(window, options);
+
+    if (response === 0) { window.destroy(); }
   });
 
   ipcMain.on('current-theme', (event, message) => {
