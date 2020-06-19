@@ -27,3 +27,10 @@ $B1: #3095E5; // Blue
   --link-colour-disabled: #{$L3};
   --text-colour-invert: #{$D2};
 }
+
+@mixin transition($attribute, $speed, $style) {
+  -webkit-transition: $attribute $speed $style;
+  -moz-transition: $attribute $speed $style;
+  -o-transition: $attribute $speed $style;
+  transition: $attribute $speed $style;
+}

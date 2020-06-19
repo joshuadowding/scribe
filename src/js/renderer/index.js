@@ -1,6 +1,6 @@
 module.exports = { init }
 
-const { app, BrowserWindow, ipcMain, nativeTheme, dialog } = require('electron');
+const { BrowserWindow, ipcMain, nativeTheme, dialog } = require('electron');
 const path = require('path');
 
 const config = require('../config');

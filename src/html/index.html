@@ -10,7 +10,7 @@
     <div class="editor-wrapper">
       <div class="editor-column" id="editor-meta">
       </div>
-      <div class="handler"></div>
+      <div class="editor-handle"></div>
       <div class="editor-column" id="editor-main">
       </div>
     </div>
@@ -22,44 +22,32 @@
       const ipc = require('electron').ipcRenderer;
       const theme = require('../js/renderer/theme');
 
-      // Detect the system theme preference on-startup:
-      $(document).ready(function() {
+      $(document).ready(() => {
+        // Detect the system theme preference on start-up:
         let currentTheme = theme.detectTheme();
         theme.chooseTheme(currentTheme);
         ipc.send('current-theme', currentTheme); // Report the detected theme preference on-startup.
 
-        // Reference: https://stackoverflow.com/questions/46931103/making-a-dragbar-to-resize-divs-inside-css-grids/46934825
-        let handler = document.querySelector('.handler');
+        // Allow the user to resize the editor-column elements:
+        let handler = document.querySelector('.editor-handle');
         let wrapper = handler.closest('.editor-wrapper');
         let box = wrapper.querySelector('.editor-column');
         let isHandlerDragging = false;
 
-        document.addEventListener('mousedown', function(event) {
-          if (event.target === handler) {
-            isHandlerDragging = true;
-          }
+        $(document).mousedown((event) => {
+          if (event.target === handler) { isHandlerDragging = true; }
         });
 
-        document.addEventListener('mousemove', function(event) {
-          if (!isHandlerDragging) {
-            return false;
-          }
+        $(document).mousemove((event) => {
+          if (!isHandlerDragging) { return false; }
 
-          let containerOffsetLeft = wrapper.offsetLeft;
-          let pointerRelativeXpos = event.clientX - containerOffsetLeft;
-          let boxMinWidth = 256;
-
-          box.style.width = (Math.max(boxMinWidth, pointerRelativeXpos - 8)) + 'px';
+          let pointerRelativeX = event.clientX - wrapper.offsetLeft;
+          box.style.width = (Math.max(256, pointerRelativeX - 16)) + 'px';
           box.style.flexGrow = 0;
         });
 
-        document.addEventListener('mouseup', function() {
-          isHandlerDragging = false;
-        });
-
-        document.addEventListener('mouseleave', function() {
-          isHandlerDragging = false;
-        });
+        $(document).mouseup(() => { isHandlerDragging = false; });
+        $(document).mouseleave(() => { isHandlerDragging = false; });
       });
 
       ipc.on('toggle-theme', () => {

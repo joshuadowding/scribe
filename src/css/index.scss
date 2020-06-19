@@ -52,22 +52,33 @@ body {
     .editor-column {
       background-color: var(--background-colour);
       box-sizing: border-box;
-      flex: 1 1 auto;
+      //flex: 1 1 auto;
+
+      &#editor-meta {
+        width: 256px;
+        min-width: 256px;
+      }
 
       &#editor-main {
-        min-width: 256px;
+        min-width: 50%;
       }
     }
 
-    .handler {
+    .editor-handle {
       width: 8px;
       padding: 0;
-      cursor: ew-resize;
+      cursor: col-resize;
       background-color: var(--foreground-colour);
       flex: 0 0 auto;
+      //@include transition(width, 0.25s, ease-in-out);
+
+      &:hover, &:focus, &:focus-within, &:active {
+        width: 8px;
+        //@include transition(width, 0.25s, ease-in-out);
+      }
     }
 
-    .handler::before {
+    .editor-handle::before {
       content: '';
       display: block;
       height: 100%;
