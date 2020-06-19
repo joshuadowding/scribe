@@ -62,7 +62,7 @@ let template = Menu.buildFromTemplate([
           {
             id: 'detect-theme', label: 'Detect Theme', type: 'checkbox', click: () => {
               config.getWindow('Editor').webContents.send('detect-theme');
-              template.getMenuItemById('toggle-theme').checked = false;
+              //template.getMenuItemById('toggle-theme').checked = false;
               config.setDetectTheme(!config.getDetectTheme());
             }
           }
