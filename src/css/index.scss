@@ -6,6 +6,13 @@
   box-sizing: border-box;
 }
 
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  position: relative;
+}
+
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   background-color: var(--background-colour);
@@ -36,5 +43,35 @@ body {
 
   p {
     color: var(--text-colour);
+  }
+
+  .editor-wrapper {
+    display: flex;
+    height: 100%;
+
+    .editor-column {
+      background-color: var(--background-colour);
+      box-sizing: border-box;
+      flex: 1 1 auto;
+
+      &#editor-main {
+        min-width: 256px;
+      }
+    }
+
+    .handler {
+      width: 8px;
+      padding: 0;
+      cursor: ew-resize;
+      background-color: var(--foreground-colour);
+      flex: 0 0 auto;
+    }
+
+    .handler::before {
+      content: '';
+      display: block;
+      height: 100%;
+      margin: 0 auto;
+    }
   }
 }
