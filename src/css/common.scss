@@ -28,9 +28,9 @@ $B1: #3095E5; // Blue
   --text-colour-invert: #{$D2};
 }
 
-@mixin transition($attribute, $speed, $style) {
-  -webkit-transition: $attribute $speed $style;
-  -moz-transition: $attribute $speed $style;
-  -o-transition: $attribute $speed $style;
-  transition: $attribute $speed $style;
+@mixin transition($element, $speed, $style) {
+  -webkit-transition: $element $speed $style;
+  -moz-transition: $element $speed $style;
+  -o-transition: $element $speed $style;
+  transition: $element $speed $style;
 }

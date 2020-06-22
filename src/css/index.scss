@@ -72,7 +72,7 @@ body {
       flex: 0 0 auto;
       //@include transition(width, 0.25s, ease-in-out);
 
-      &:hover, &:focus, &:focus-within, &:active {
+      &:hover, &:focus, &:active {
         width: 8px;
         //@include transition(width, 0.25s, ease-in-out);
       }
