@@ -1,6 +1,7 @@
 module.exports = { init }
 
 const common = require('./common');
+const config = require('../config');
 
 const path = require('path');
 

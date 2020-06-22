@@ -5,6 +5,7 @@ const path = require('path');
 
 const config = require('../config');
 const menu = require('./menu');
+const wizard = require('./dialogs/wizard');
 
 function init() {
   if (config.getWindow('Editor')) {
@@ -30,7 +31,9 @@ function init() {
 
   window.loadFile(path.join(__dirname, '../../html/index.html')).then(() => {
     nativeTheme.themeSource = 'system';
+
     menu.init();
+    wizard.init();
   });
 
   window.webContents.on('did-finish-load', () => {
@@ -49,4 +52,6 @@ function init() {
   ipcMain.on('current-theme', (event, message) => {
     config.setCurrentTheme(message);
   });
+
+  //window.webContents.openDevTools(); // DEBUG: Disable when not required.
 }

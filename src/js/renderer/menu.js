@@ -4,6 +4,7 @@ const { app, Menu } = require('electron');
 
 const about = require('./dialogs/about');
 const config = require('../config');
+const wizard = require('../renderer/dialogs/wizard');
 
 let toggleDevTools = false;
 
@@ -11,6 +12,8 @@ let template = Menu.buildFromTemplate([
   {
     label: 'Scribe',
     submenu: [
+      { label: 'Project Wizard', click: () => wizard.init() },
+      { type: 'separator' },
       { label: 'About', click: () => about.init() },
       { label: 'Quit', role: 'close', click: () => app.quit() }
     ]

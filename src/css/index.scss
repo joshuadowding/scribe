@@ -45,6 +45,14 @@ body {
     color: var(--text-colour);
   }
 
+  .wizard-wrapper {
+    height: 100%;
+  }
+
+  .about-wrapper {
+    height: 100%;
+  }
+
   .editor-wrapper {
     display: flex;
     height: 100%;
@@ -83,6 +91,16 @@ body {
       display: block;
       height: 100%;
       margin: 0 auto;
+    }
+  }
+
+  .page-wrapper {
+    .page {
+      display: none;
+
+      &.show {
+        display: block;
+      }
     }
   }
 }
