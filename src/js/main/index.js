@@ -16,12 +16,13 @@ function init() {
   let data = JSON.stringify(settings);
 
   // Check if the data directory exists, if not, create an empty directory:
-  let check = common.checkDirectoryExists(datadir);
+  let check = common.checkPathExists(datadir);
   if (!check) { common.createDataDirectory(datadir); }
+  check = false; // Reset check for second check.
 
   // Check if the configuration file exists; if not, create an empty (placeholder) file:
-  check = common.checkDirectoryExists(confdir);
-  if (!check) { common.writeDataFile(confdir, data); }
+  check = common.checkPathExists(confdir);
+  if (!check) { common.createDataFile(confdir, data); }
 
   config.setCurrentSettings(settings);
 }

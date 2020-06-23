@@ -66,11 +66,11 @@ function init() {
     let filepath = path.join(project.getPath(), project.getName());
     let filename = path.join(filepath, project.getName() + ".scri");
 
-    let check = common.checkDirectoryExists(filepath);
+    let check = common.checkPathExists(filepath);
     if (!check) { common.createDataDirectory(filepath); }
 
-    check = common.checkDirectoryExists(filename);
-    if (!check) { common.writeDataFile(filename, data); }
+    check = common.checkPathExists(filename);
+    if (!check) { common.createDataFile(filename, data); }
 
     config.setCurrentProject(project);
     window.destroy(); // NOTE: Because we catch the 'close' event; let's just destroy it.
@@ -78,7 +78,8 @@ function init() {
 
   ipcMain.on('choose-path', () => {
     dialog.showOpenDialog(window, {
-      properties: ['openDirectory']
+      properties: ['openDirectory'],
+      defaultPath: path.join(require('os').homedir(), ".scribe") // TODO: Access from elsewhere.
     }).then((result) => {
       if (result.canceled) { ipcMain.send('path-chosen', null); }
       else { window.webContents.send('path-chosen', result.filePaths); }

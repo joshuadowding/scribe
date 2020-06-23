@@ -1,23 +1,29 @@
-module.exports = { checkDirectoryExists, createDataDirectory, writeDataFile }
+module.exports = { checkPathExists, createDataDirectory, createDataFile }
 
-const fs = require('fs');
+const filesystem = require('fs');
 
-function checkDirectoryExists(path) {
+function checkPathExists(path) {
   let check = false;
-  if (fs.existsSync(path)) { check = true; }
+  filesystem.access(path, filesystem.constants.F_OK, (error) => {
+    if (error) { console.error(error.message); }
+    else { check = true; }
+  });
   return check;
 }
 
 function createDataDirectory(path) {
   let success = false;
-  success = fs.mkdirSync(path);
+  filesystem.mkdir(path, { recursive: true }, (error) => {
+    if (error) { console.error(error.message); }
+    else { success = true; }
+  });
   return success;
 }
 
-function writeDataFile(path, data) {
+function createDataFile(path, data) {
   let success = false;
-  fs.writeFile(path, data, 'utf8', (error) => {
-    if (error) { console.error(error); }
+  filesystem.writeFile(path, data, 'utf8', (error) => {
+    if (error) { console.error(error.message); }
     else { success = true; }
   });
   return success;
