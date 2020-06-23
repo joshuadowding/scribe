@@ -1,4 +1,4 @@
-module.exports = { checkDirectoryExists, createDataDirectory, createSettingsFile }
+module.exports = { checkDirectoryExists, createDataDirectory, writeDataFile }
 
 const fs = require('fs');
 
@@ -14,9 +14,9 @@ function createDataDirectory(path) {
   return success;
 }
 
-function createSettingsFile(path) {
+function writeDataFile(path, data) {
   let success = false;
-  fs.writeFile(path, '{}', 'utf8', (error) => {
+  fs.writeFile(path, data, 'utf8', (error) => {
     if (error) { console.error(error); }
     else { success = true; }
   });

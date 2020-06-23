@@ -3,12 +3,14 @@ module.exports = {
   getWindow, addWindow, removeWindow,
   getCurrentTheme, setCurrentTheme,
   getDetectTheme, setDetectTheme,
-  getCurrentProject, setCurrentProject
+  getCurrentProject, setCurrentProject,
+  getCurrentSettings, setCurrentSettings
 }
 
 let currentWindows;
 let currentTheme;
 let currentProject;
+let currentSettings;
 let detectTheme;
 
 function init() {
@@ -55,4 +57,12 @@ function getCurrentProject() {
 
 function setCurrentProject(project) {
   currentProject = project;
+}
+
+function getCurrentSettings() {
+  return currentSettings;
+}
+
+function setCurrentSettings(settings) {
+  currentSettings = settings;
 }

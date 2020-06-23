@@ -5,6 +5,7 @@ const path = require('path');
 
 const Project = require('../../main/models/project');
 const config = require('../../config');
+const common = require('../../common');
 
 function init() {
   if (config.getWindow('Wizard')) {
@@ -60,6 +61,16 @@ function init() {
     project.setAuthor(response.get('project-author'));
     project.setPath(response.get('project-path'));
     project.setHierarchy([]);
+
+    let data = JSON.stringify(project);
+    let filepath = path.join(project.getPath(), project.getName());
+    let filename = path.join(filepath, project.getName() + ".scri");
+
+    let check = common.checkDirectoryExists(filepath);
+    if (!check) { common.createDataDirectory(filepath); }
+
+    check = common.checkDirectoryExists(filename);
+    if (!check) { common.writeDataFile(filename, data); }
 
     config.setCurrentProject(project);
     window.destroy(); // NOTE: Because we catch the 'close' event; let's just destroy it.

@@ -1,6 +1,7 @@
 module.exports = { init }
 
-const common = require('./common');
+const Settings = require('../main/models/settings');
+const common = require('../common');
 const config = require('../config');
 
 const path = require('path');
@@ -10,11 +11,17 @@ const datadir = path.join(homedir, ".scribe");
 const confdir = path.join(datadir, "settings.json");
 
 function init() {
+  let settings = new Settings();
+
+  let data = JSON.stringify(settings);
+
   // Check if the data directory exists, if not, create an empty directory:
   let check = common.checkDirectoryExists(datadir);
   if (!check) { common.createDataDirectory(datadir); }
 
   // Check if the configuration file exists; if not, create an empty (placeholder) file:
   check = common.checkDirectoryExists(confdir);
-  if (!check) { common.createSettingsFile(confdir); }
+  if (!check) { common.writeDataFile(confdir, data); }
+
+  config.setCurrentSettings(settings);
 }
