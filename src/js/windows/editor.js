@@ -4,8 +4,8 @@ const { BrowserWindow, ipcMain, nativeTheme, dialog } = require('electron');
 const path = require('path');
 
 const config = require('../config');
-const menu = require('./menu');
-const wizard = require('./dialogs/wizard');
+const menu = require('../helpers/menu');
+const wizard = require('../dialogs/wizard');
 
 function init() {
   if (config.getWindow('Editor')) {

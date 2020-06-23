@@ -1,8 +1,9 @@
 module.exports = { init }
 
-const Settings = require('../main/models/settings');
-const common = require('../common');
-const config = require('../config');
+const Settings = require('./models/settings');
+const editor = require('./windows/editor');
+const common = require('./common');
+const config = require('./config');
 
 const path = require('path');
 
@@ -25,4 +26,6 @@ function init() {
   if (!check) { common.createDataFile(confdir, data); }
 
   config.setCurrentSettings(settings);
+
+  editor.init(); // Create the main 'editor' window.
 }

@@ -3,7 +3,7 @@ module.exports = { init }
 const { BrowserWindow } = require('electron');
 const path = require('path');
 
-const config = require('../../config');
+const config = require('../config');
 
 function init() {
   if (config.getWindow('About')) {
@@ -31,7 +31,7 @@ function init() {
 
   window.setMenuBarVisibility(false);
 
-  window.loadFile(path.join(__dirname, '../../../html/dialogs/about.html')).then(() => {
+  window.loadFile(path.join(__dirname, '../../html/dialogs/about.html')).then(() => {
     window.webContents.send('choose-theme', config.getCurrentTheme());
   });
 

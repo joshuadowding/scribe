@@ -1,7 +1,6 @@
 const { app, BrowserWindow } = require('electron');
 
-const main = require('./js/main/index');
-const renderer = require('./js/renderer/index');
+const main = require('./js');
 const config = require('./js/config');
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling:
@@ -31,5 +30,4 @@ app.on('window-all-closed', () => {
 function init() {
   config.init();
   main.init();
-  renderer.init();
 }
