@@ -2,7 +2,6 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <title>Scribe</title>
 
     <link type="text/css" rel="stylesheet" href="../../css/index.css">
     <link type="text/css" rel="stylesheet" href="../../lib/fonts/inter/inter.css">
@@ -35,7 +34,7 @@
               </div>
               <div class="input-row">
                 <label for="input-path-choose">Project Location:</label>
-                <input class="button" type="button" id="input-path-choose" value="Choose" />
+                <input class="button" type="button" id="input-path-choose" value="Choose Location" />
                 <input class="text" type="hidden" id="input-path" value="" />
               </div>
             </div>
@@ -61,6 +60,7 @@
 
       ipc.on('path-chosen', (event, message) => {
         $('#input-path').val(message);
+        $('#input-path-choose').val(message);
       });
 
       $(document).ready(function() {

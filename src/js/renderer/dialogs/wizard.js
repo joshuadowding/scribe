@@ -33,7 +33,6 @@ function init() {
   window.setMenuBarVisibility(false);
 
   window.loadFile(path.join(__dirname, '../../../html/dialogs/wizard.html')).then(() => {
-    //window.setAlwaysOnTop(true);
     window.webContents.send('choose-theme', config.getCurrentTheme());
   });
 
@@ -53,8 +52,6 @@ function init() {
     }
   });
 
-  window.webContents.openDevTools();
-
   ipcMain.on('create-project', (event, message) => {
     let project = new Project();
     let response = new Map(message);
@@ -65,7 +62,7 @@ function init() {
     project.setHierarchy([]);
 
     config.setCurrentProject(project);
-    window.close();
+    window.destroy(); // NOTE: Because we catch the 'close' event; let's just destroy it.
   });
 
   ipcMain.on('choose-path', () => {
@@ -76,4 +73,6 @@ function init() {
       else { window.webContents.send('path-chosen', result.filePaths); }
     });
   });
+
+  //window.webContents.openDevTools(); // DEBUG: Disable when not required.
 }
