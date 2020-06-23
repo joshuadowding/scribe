@@ -32,7 +32,7 @@ function init() {
   window.setMenuBarVisibility(false);
 
   window.loadFile(path.join(__dirname, '../../../html/dialogs/about.html')).then(() => {
-    window.setAlwaysOnTop(true);
+    //window.setAlwaysOnTop(true);
     window.webContents.send('choose-theme', config.getCurrentTheme());
   });
 

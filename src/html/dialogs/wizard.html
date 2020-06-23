@@ -5,30 +5,45 @@
     <title>Scribe</title>
 
     <link type="text/css" rel="stylesheet" href="../../css/index.css">
+    <link type="text/css" rel="stylesheet" href="../../lib/fonts/inter/inter.css">
   </head>
   <body>
     <div class="wizard-wrapper">
       <div class="page-wrapper">
         <div class="page show" id="welcome-page">
-          <input type="button" id="new-project" value="New Project" />
-          <input type="button" id="load-project" value="Load Project" />
+          <div class="welcome-page">
+            <div class="welcome-title">
+              <h1 class="title">Welcome.</h1>
+              <p class="tagline">Create a new project, or load a previous one.</p>
+            </div>
+            <div class="welcome-options">
+              <input class="button" type="button" id="new-project" value="New Project" />
+              <input class="button" type="button" id="load-project" value="Load Project" />
+            </div>
+          </div>
         </div>
         <div class="page" id="project-page">
           <form class="create-project">
-            <label for="input-name">Project Name:</label>
-            <input type="text" id="input-name" required />
-
-            <label for="input-author">Project Author:</label>
-            <input type="text" id="input-author" required />
-
-            <label for="input-path">Project Location:</label>
-            <input type="button" id="input-path-choose" value="Choose..." />
-            <input type="hidden" id="input-path" value="" />
-
-            <input type="submit" value="Finish" />
+            <div class="input-col">
+              <div class="input-row">
+                <label for="input-name">Project Name:</label>
+                <input class="text" type="text" id="input-name" required />
+              </div>
+              <div class="input-row">
+                <label for="input-author">Project Author:</label>
+                <input class="text" type="text" id="input-author" required />
+              </div>
+              <div class="input-row">
+                <label for="input-path-choose">Project Location:</label>
+                <input class="button" type="button" id="input-path-choose" value="Choose" />
+                <input class="text" type="hidden" id="input-path" value="" />
+              </div>
+            </div>
+            <div class="control-row">
+              <input class="button" type="button" id="page-back" value="Back" />
+              <input class="button tint" type="submit" value="Finish" />
+            </div>
           </form>
-
-          <input type="submit" id="page-back" value="Back" />
         </div>
       </div>
     </div>

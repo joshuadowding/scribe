@@ -14,7 +14,7 @@ function init() {
   const window = new BrowserWindow({
     width: 640,
     height: 480,
-    resizable: false,
+    resizable: true,
     skipTaskbar: false,
     maximizable: false,
     minimizable: false,
@@ -33,13 +33,27 @@ function init() {
   window.setMenuBarVisibility(false);
 
   window.loadFile(path.join(__dirname, '../../../html/dialogs/wizard.html')).then(() => {
-    window.setAlwaysOnTop(true);
+    //window.setAlwaysOnTop(true);
     window.webContents.send('choose-theme', config.getCurrentTheme());
   });
 
   window.webContents.on('did-finish-load', () => {
     config.addWindow('Wizard', window);
   });
+
+  window.on('close', (event) => {
+    event.preventDefault();
+
+    const options = { type: 'question', buttons: ['Yes', 'No'], title: 'Quit', message: 'Are you sure you\'d like to quit Scribe?' };
+    const response = dialog.showMessageBoxSync(window, options);
+
+    if (response === 0) {
+      window.destroy();
+      config.getWindow('Editor').destroy();
+    }
+  });
+
+  window.webContents.openDevTools();
 
   ipcMain.on('create-project', (event, message) => {
     let project = new Project();

@@ -6,6 +6,10 @@
   box-sizing: border-box;
 }
 
+html {
+  font-size: 62.5%;
+}
+
 html, body {
   height: 100%;
   width: 100%;
@@ -14,7 +18,7 @@ html, body {
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   background-color: var(--background-colour);
 
   h1 {
@@ -42,11 +46,156 @@ body {
   }
 
   p {
+    font-size: 1.2rem;
+    font-weight: 500;
     color: var(--text-colour);
+  }
+
+  label {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--text-colour);
+  }
+
+  input.button {
+    background-color: var(--foreground-colour);
+    color: var(--text-colour);
+    border-radius: .35rem;
+    border: 0;
+    padding: 8px 16px;
+    min-width: 96px;
+    -webkit-box-shadow: 0 5px 15px 0 var(--box-shadow);
+    -moz-box-shadow: 0 5px 15px 0 var(--box-shadow);
+    box-shadow: 0 5px 15px 0 var(--box-shadow);
+
+    &:hover {
+      background-color: var(--link-colour);
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    &.tint {
+      background-color: var(--highlight-colour);
+
+      &:hover {
+        background-color: var(--link-colour);
+      }
+    }
+  }
+
+  input.text {
+    background-color: var(--foreground-colour);
+    color: var(--text-colour);
+    border-radius: .35rem;
+    border: 0;
+    padding: 8px 16px;
+    min-width: 96px;
+    -webkit-box-shadow: 0 5px 15px 0 var(--box-shadow);
+    -moz-box-shadow: 0 5px 15px 0 var(--box-shadow);
+    box-shadow: 0 5px 15px 0 var(--box-shadow);
+
+    &:hover {
+      background-color: var(--link-colour);
+    }
+
+    &:focus {
+      outline: none;
+    }
   }
 
   .wizard-wrapper {
     height: 100%;
+
+    .welcome-page {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      .welcome-title {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin: 0 0 48px 0;
+
+        .title {
+          font-size: 6.8rem;
+          text-align: center;
+          line-height: 9.6rem;
+          margin: 0;
+          background: -webkit-linear-gradient(left, #3095E5, #E53068);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+
+        .tagline {
+          font-size: 1.4rem;
+          text-align: center;
+          line-height: 1.4rem;
+          margin: 0;
+        }
+      }
+
+      .welcome-options {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+
+        .button {
+          &:first-child {
+            margin: 0 16px 0 0;
+          }
+        }
+      }
+    }
+
+    .create-project {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+
+      .input-col {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex-grow: 1;
+
+        .input-row {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          margin: 0 0 16px 0;
+          width: 75%;
+
+          label {
+            width: 25%;
+          }
+
+          .text, .button {
+            margin: 0 0 0 16px;
+            width: 75%;
+          }
+        }
+      }
+
+      .control-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        margin: 0 0 16px 0;
+
+        .button {
+          &:first-child {
+            margin: 0 16px 0 0;
+          }
+        }
+      }
+    }
   }
 
   .about-wrapper {
@@ -95,7 +244,10 @@ body {
   }
 
   .page-wrapper {
+    height: 100%;
+
     .page {
+      height: 100%;
       display: none;
 
       &.show {

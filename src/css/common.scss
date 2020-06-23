@@ -5,12 +5,16 @@ $D1: #1C1D1F; // Grey (Dark)
 $D2: #292a2d; // Black (Light)
 $D3: #000000; // Black
 $B1: #3095E5; // Blue
+$P1: #E53068; // Pink
 
 :root {
+  --box-shadow: #{transparentize($L3, 0.75)};
+
   --background-colour: #{$L2};
   --foreground-colour: #{$L1};
 
   --link-colour: #{$B1};
+  --highlight-colour: #{$P1};
   --text-colour: #{$D2};
 
   --link-colour-disabled: #{$L3};
@@ -18,10 +22,13 @@ $B1: #3095E5; // Blue
 }
 
 :root.theme-dark {
+  --box-shadow: #{transparentize($D3, 0.75)};
+
   --background-colour: #{$D1};
   --foreground-colour: #{$D2};
 
   --link-colour: #{$B1};
+  --highlight-colour: #{$P1};
   --text-colour: #{$L1};
 
   --link-colour-disabled: #{$L3};

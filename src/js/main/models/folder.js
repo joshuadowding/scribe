@@ -53,3 +53,5 @@ class Folder {
     this.folderHierarchy = folderHierarchy;
   }
 }
+
+module.exports = Folder

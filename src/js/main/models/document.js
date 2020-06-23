@@ -53,3 +53,5 @@ class Document {
     this.documentPath = documentPath;
   }
 }
+
+module.exports = Document
