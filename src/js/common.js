@@ -1,4 +1,4 @@
-module.exports = { checkPathExists, createDataDirectory, createDataFile, readProjectFile, mapProjectToObject }
+module.exports = { checkPathExists, createDataDirectory, createDataFile, readProjectFile, readSettingsFile }
 
 const Project = require('./models/project');
 
@@ -28,7 +28,13 @@ function createDataFile(path, data) {
 function readProjectFile(path) {
   const data = filesystem.readFileSync(path, 'utf8');
   if (data !== undefined) { return mapProjectToObject(JSON.parse(data)); }
-  else { console.error(error.message); return undefined; }
+  else { return undefined; }
+}
+
+function readSettingsFile(path) {
+  const data = filesystem.readFileSync(path, 'utf8');
+  if (data !== undefined) { return mapSettingsToObject(JSON.parse(data)); }
+  else { return undefined; }
 }
 
 function mapProjectToObject(data) {
@@ -38,4 +44,10 @@ function mapProjectToObject(data) {
   project.setPath(data.projectPath);
   project.setHierarchy(data.projectHierarchy);
   return project;
+}
+
+function mapSettingsToObject(data) {
+  let settings = new Settings();
+  // TODO: Add properties as they're created.
+  return settings;
 }

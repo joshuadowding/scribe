@@ -23,7 +23,11 @@ function init() {
   check = common.checkPathExists(confdir);
   if (!check) { common.createDataFile(confdir, JSON.stringify(settings)); }
   else {
-    // TODO: Settings file exists, so load it.
+    const data = common.readSettingsFile(confdir);
+    if (data !== undefined) { config.setCurrentSettings(data); }
+    else {
+      // TODO: Handle invalid settings file.
+    }
   }
 
   config.setCurrentSettings(settings);
