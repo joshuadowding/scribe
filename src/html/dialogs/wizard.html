@@ -80,6 +80,11 @@
           $('#project-page').addClass('show');
         });
 
+        $('#load-project').click(function(event) {
+          event.preventDefault();
+          ipc.send('load-project');
+        });
+
         $('#page-back').click(function() {
           $('#welcome-page').addClass('show');
           $('#project-page').removeClass('show');

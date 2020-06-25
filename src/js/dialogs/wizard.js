@@ -76,12 +76,34 @@ function init() {
     window.destroy(); // NOTE: Because we catch the 'close' event; let's just destroy it.
   });
 
+  ipcMain.on('load-project', (event, message) => {
+    dialog.showOpenDialog(window, {
+      title: 'Scribe',
+      properties: ['openFile'],
+      defaultPath: path.join(require('os').homedir(), ".scribe"), // TODO: Access from elsewhere.
+      filters: [{ name: 'Scribe Project', extensions: ['scri'] }]
+    }).then((result) => {
+      if (result.canceled) { window.webContents.send('path-chosen', null); }
+      else {
+        const data = common.readProjectFile(result.filePaths[0]);
+        if (data !== undefined) {
+          config.setCurrentProject(data);
+          window.destroy();
+        } else {
+          const options = { type: 'error', buttons: ['Ok'], title: 'Error', message: 'Unable to parse project file. Please try again.' };
+          dialog.showMessageBoxSync(window, options);
+        }
+      }
+    });
+  });
+
   ipcMain.on('choose-path', () => {
     dialog.showOpenDialog(window, {
+      title: 'Scribe',
       properties: ['openDirectory'],
       defaultPath: path.join(require('os').homedir(), ".scribe") // TODO: Access from elsewhere.
     }).then((result) => {
-      if (result.canceled) { ipcMain.send('path-chosen', null); }
+      if (result.canceled) { window.webContents.send('path-chosen', null); }
       else { window.webContents.send('path-chosen', result.filePaths); }
     });
   });

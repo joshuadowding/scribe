@@ -1,30 +1,41 @@
-module.exports = { checkPathExists, createDataDirectory, createDataFile }
+module.exports = { checkPathExists, createDataDirectory, createDataFile, readProjectFile, mapProjectToObject }
+
+const Project = require('./models/project');
 
 const filesystem = require('fs');
 
 function checkPathExists(path) {
-  let check = false;
   filesystem.access(path, filesystem.constants.F_OK, (error) => {
-    if (error) { console.error(error.message); }
-    else { check = true; }
+    if (error) { console.error(error.message); return false; }
+    else { return true; }
   });
-  return check;
 }
 
 function createDataDirectory(path) {
-  let success = false;
   filesystem.mkdir(path, { recursive: true }, (error) => {
-    if (error) { console.error(error.message); }
-    else { success = true; }
+    if (error) { console.error(error.message); return false; }
+    else { return true; }
   });
-  return success;
 }
 
 function createDataFile(path, data) {
-  let success = false;
   filesystem.writeFile(path, data, 'utf8', (error) => {
-    if (error) { console.error(error.message); }
-    else { success = true; }
+    if (error) { console.error(error.message); return false; }
+    else { return true; }
   });
-  return success;
+}
+
+function readProjectFile(path) {
+  const data = filesystem.readFileSync(path, 'utf8');
+  if (data !== undefined) { return mapProjectToObject(JSON.parse(data)); }
+  else { console.error(error.message); return undefined; }
+}
+
+function mapProjectToObject(data) {
+  let project = new Project();
+  project.setName(data.projectName);
+  project.setAuthor(data.projectAuthor);
+  project.setPath(data.projectPath);
+  project.setHierarchy(data.projectHierarchy);
+  return project;
 }

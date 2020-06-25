@@ -14,8 +14,6 @@ const confdir = path.join(datadir, "settings.json");
 function init() {
   let settings = new Settings();
 
-  let data = JSON.stringify(settings);
-
   // Check if the data directory exists, if not, create an empty directory:
   let check = common.checkPathExists(datadir);
   if (!check) { common.createDataDirectory(datadir); }
@@ -23,7 +21,10 @@ function init() {
 
   // Check if the configuration file exists; if not, create an empty (placeholder) file:
   check = common.checkPathExists(confdir);
-  if (!check) { common.createDataFile(confdir, data); }
+  if (!check) { common.createDataFile(confdir, JSON.stringify(settings)); }
+  else {
+    // TODO: Settings file exists, so load it.
+  }
 
   config.setCurrentSettings(settings);
 
