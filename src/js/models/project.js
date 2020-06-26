@@ -2,6 +2,7 @@ class Project {
   projectName;
   projectAuthor;
   projectPath;
+  projectFilePath;
   projectHierarchy;
 
   constructor() {}
@@ -28,6 +29,14 @@ class Project {
 
   setPath(projectPath) {
     this.projectPath = projectPath;
+  }
+
+  getFilePath() {
+    return this.projectFilePath;
+  }
+
+  setFilePath(projectFilePath) {
+    this.projectFilePath = projectFilePath;
   }
 
   getHierarchy() {

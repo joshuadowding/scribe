@@ -46,7 +46,6 @@ function init() {
 
     const options = { type: 'question', buttons: ['Yes', 'No'], title: 'Quit', message: 'Are you sure you\'d like to quit Scribe?' }
     const response = dialog.showMessageBoxSync(window, options);
-
     if (response === 0) { window.destroy(); }
   });
 
@@ -55,11 +54,11 @@ function init() {
   });
 
   ipcMain.on('create-file', () => {
-    create.init('File');
+    create.init({ type: 'File', selected: undefined });
   });
 
   ipcMain.on('create-folder', () => {
-    create.init('Folder');
+    create.init({ type: 'Folder', selected: undefined });
   });
 
   //window.webContents.openDevTools(); // DEBUG: Disable when not required.

@@ -1,4 +1,4 @@
-module.exports = { checkPathExists, createDataDirectory, createDataFile, readProjectFile, readSettingsFile }
+module.exports = { checkPathExists, createDataDirectory, createDataFile, readProjectFile, readSettingsFile, writeDataFile }
 
 const Project = require('./models/project');
 
@@ -50,4 +50,8 @@ function mapSettingsToObject(data) {
   let settings = new Settings();
   // TODO: Add properties as they're created.
   return settings;
+}
+
+function writeDataFile(path, data) {
+  filesystem.writeFileSync(path, data, 'utf8');
 }

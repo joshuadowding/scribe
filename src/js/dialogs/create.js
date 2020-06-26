@@ -8,10 +8,16 @@ const Folder = require('../models/folder');
 const config = require('../config');
 const common = require('../common');
 
-function init(option) {
+let type = undefined;
+let selected = undefined;
+
+function init(options) {
   if (config.getWindow('Create')) {
     return config.getWindow('Create').show();
   }
+
+  type = options['type'];
+  selected = options['selected'];
 
   const window = new BrowserWindow({
     width: 480,
@@ -43,7 +49,7 @@ function init(option) {
   });
 
   ipcMain.on('form-create', (event, message) => {
-    switch(option) {
+    switch(type) {
       case 'File':
         let file = new File();
         file.setName(message); // TODO: Sanitize input.
@@ -60,7 +66,7 @@ function init(option) {
         break;
     }
 
-    console.log(config.getCurrentProject());
+    common.writeDataFile(config.getCurrentProject().getFilePath(), JSON.stringify(config.getCurrentProject()));
     window.destroy();
   });
 

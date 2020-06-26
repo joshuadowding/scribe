@@ -73,11 +73,13 @@
         });
 
         $('#add-file').click(function() {
+          // TODO: Support selecting items in the hierarchy to create sub-items.
           ipc.send('create-file');
           $('#add-dropdown').removeClass('show');
         });
 
         $('#add-folder').click(function() {
+          // TODO: Support selecting items in the hierarchy to create sub-items.
           ipc.send('create-folder');
           $('#add-dropdown').removeClass('show');
         });

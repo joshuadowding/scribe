@@ -72,6 +72,7 @@ function init() {
     check = common.checkPathExists(filename);
     if (!check) { common.createDataFile(filename, data); }
 
+    project.setFilePath(filename);
     config.setCurrentProject(project);
     window.destroy(); // NOTE: Because we catch the 'close' event; let's just destroy it.
   });
@@ -88,6 +89,7 @@ function init() {
         const data = common.readProjectFile(result.filePaths[0]);
         if (data !== undefined) {
           config.setCurrentProject(data);
+          config.getCurrentProject().setFilePath(result.filePaths[0]);
           window.destroy();
         } else {
           const options = { type: 'error', buttons: ['Ok'], title: 'Error', message: 'Unable to parse project file. Please try again.' };
