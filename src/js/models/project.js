@@ -1,51 +1,28 @@
 class Project {
-  projectName;
-  projectAuthor;
-  projectPath;
-  projectFilePath;
-  projectHierarchy;
-
-  constructor() {}
-
-  getName() {
-    return this.projectName;
+  constructor(options) {
+    if (options !== undefined) {
+      options['name'] !== undefined ? this.Name = options['name'] : this.Name = undefined;
+      options['author'] !== undefined ? this.Author = options['author'] : this.Author = undefined;
+      options['filePath'] !== undefined ? this.FilePath = options['filePath'] : this.FilePath = undefined;
+      options['projectPath'] !== undefined ? this.ProjectPath = options['projectPath'] : this.ProjectPath = undefined;
+      options['hierarchy'] !== undefined ? this.Hierarchy = options['hierarchy'] : this.Hierarchy = [];
+    }
   }
 
-  setName(projectName) {
-    this.projectName = projectName;
-  }
+  get Name() { return this.projectName; }
+  set Name(value) { this.projectName = value; }
 
-  getAuthor() {
-    return this.projectAuthor;
-  }
+  get Author() { return this.projectAuthor; }
+  set Author(value) { this.projectAuthor = value; }
 
-  setAuthor(projectAuthor) {
-    this.projectAuthor = projectAuthor;
-  }
+  get FilePath() { return this.projectFilePath; }
+  set FilePath(value) { this.projectFilePath = value; }
 
-  getPath() {
-    return this.projectPath;
-  }
+  get ProjectPath() { return this.projectPath; }
+  set ProjectPath(value) { this.projectPath = value; }
 
-  setPath(projectPath) {
-    this.projectPath = projectPath;
-  }
-
-  getFilePath() {
-    return this.projectFilePath;
-  }
-
-  setFilePath(projectFilePath) {
-    this.projectFilePath = projectFilePath;
-  }
-
-  getHierarchy() {
-    return this.projectHierarchy;
-  }
-
-  setHierarchy(projectHierarchy) {
-    this.projectHierarchy = projectHierarchy;
-  }
+  get Hierarchy() { return this.projectHierarchy; }
+  set Hierarchy(value) { this.projectHierarchy = value; }
 }
 
 module.exports = Project

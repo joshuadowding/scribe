@@ -1,8 +1,8 @@
 module.exports = { checkPathExists, createDataDirectory, createDataFile, readProjectFile, readSettingsFile, writeDataFile }
 
-const Project = require('./models/project');
-
 const filesystem = require('fs');
+
+const Project = require('./models/project');
 
 function checkPathExists(path) {
   filesystem.access(path, filesystem.constants.F_OK, (error) => {
@@ -38,12 +38,13 @@ function readSettingsFile(path) {
 }
 
 function mapProjectToObject(data) {
-  let project = new Project();
-  project.setName(data.projectName);
-  project.setAuthor(data.projectAuthor);
-  project.setPath(data.projectPath);
-  project.setHierarchy(data.projectHierarchy);
-  return project;
+  return new Project({
+    name: data.projectName,
+    author: data.projectAuthor,
+    filePath: data.filePath,
+    projectPath: data.projectPath,
+    hierarchy: data.projectHierarchy
+  });
 }
 
 function mapSettingsToObject(data) {

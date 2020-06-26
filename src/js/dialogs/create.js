@@ -53,20 +53,20 @@ function init(options) {
       case 'File':
         let file = new File();
         file.setName(message); // TODO: Sanitize input.
-        file.setPath(path.join(config.getCurrentProject().getPath(), message + ".md"));
-        config.getCurrentProject().getHierarchy().push(file);
+        file.setPath(path.join(config.getCurrentProject().ProjectPath, message + ".md"));
+        config.getCurrentProject().Hierarchy.push(file);
         break;
 
       case 'Folder':
         let folder = new Folder();
         folder.setName(message); // TODO: Sanitize input.
         folder.setHierarchy([]);
-        folder.setPath(path.join(config.getCurrentProject().getPath(), message));
-        config.getCurrentProject().getHierarchy().push(folder);
+        folder.setPath(path.join(config.getCurrentProject().ProjectPath, message));
+        config.getCurrentProject().Hierarchy.push(folder);
         break;
     }
 
-    common.writeDataFile(config.getCurrentProject().getFilePath(), JSON.stringify(config.getCurrentProject()));
+    common.writeDataFile(config.getCurrentProject().FilePath, JSON.stringify(config.getCurrentProject()));
     window.destroy();
   });
 

@@ -4,14 +4,21 @@ module.exports = {
   getCurrentTheme, setCurrentTheme,
   getDetectTheme, setDetectTheme,
   getCurrentProject, setCurrentProject,
-  getCurrentSettings, setCurrentSettings
+  getCurrentSettings, setCurrentSettings,
+  getHomeDir, getDataDir, getConfDir
 }
+
+const path = require('path');
 
 let currentWindows;
 let currentTheme;
 let currentProject;
 let currentSettings;
 let detectTheme;
+
+const homeDir = require('os').homedir();
+const dataDir = path.join(homeDir, ".scribe");
+const confDir = path.join(dataDir, "settings.json");
 
 function init() {
   currentWindows = new Map();
@@ -65,4 +72,16 @@ function getCurrentSettings() {
 
 function setCurrentSettings(settings) {
   currentSettings = settings;
+}
+
+function getHomeDir() {
+  return homeDir;
+}
+
+function getDataDir() {
+  return dataDir;
+}
+
+function getConfDir() {
+  return confDir;
 }

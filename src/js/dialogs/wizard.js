@@ -54,17 +54,17 @@ function init() {
   });
 
   ipcMain.on('create-project', (event, message) => {
-    let project = new Project();
     let response = new Map(message);
 
-    project.setName(response.get('project-name'));
-    project.setAuthor(response.get('project-author'));
-    project.setPath(response.get('project-path'));
-    project.setHierarchy([]);
+    let project = new Project({
+      name: response.get('project-name'),
+      author: response.get('project-author'),
+      projectPath: response.get('project-path')
+    });
 
     let data = JSON.stringify(project);
-    let filepath = path.join(project.getPath(), project.getName());
-    let filename = path.join(filepath, project.getName() + ".scri");
+    let filepath = path.join(project.ProjectPath, project.Name);
+    let filename = path.join(filepath, project.Name + ".scri");
 
     let check = common.checkPathExists(filepath);
     if (!check) { common.createDataDirectory(filepath); }
@@ -72,24 +72,26 @@ function init() {
     check = common.checkPathExists(filename);
     if (!check) { common.createDataFile(filename, data); }
 
-    project.setFilePath(filename);
+    project.FilePath = filename;
+
     config.setCurrentProject(project);
     window.destroy(); // NOTE: Because we catch the 'close' event; let's just destroy it.
   });
 
   ipcMain.on('load-project', () => {
-    dialog.showOpenDialog(window, {
+    const options = {
       title: 'Scribe',
       properties: ['openFile'],
-      defaultPath: path.join(require('os').homedir(), ".scribe"), // TODO: Access from elsewhere.
+      defaultPath: path.join(config.getDataDir()),
       filters: [{ name: 'Scribe Project', extensions: ['scri'] }]
-    }).then((result) => {
+    }
+
+    dialog.showOpenDialog(window, options).then((result) => {
       if (result.canceled) { window.webContents.send('path-chosen', null); }
       else {
         const data = common.readProjectFile(result.filePaths[0]);
         if (data !== undefined) {
           config.setCurrentProject(data);
-          config.getCurrentProject().setFilePath(result.filePaths[0]);
           window.destroy();
         } else {
           const options = { type: 'error', buttons: ['Ok'], title: 'Error', message: 'Unable to parse project file. Please try again.' };
@@ -100,11 +102,13 @@ function init() {
   });
 
   ipcMain.on('choose-path', () => {
-    dialog.showOpenDialog(window, {
+    const options = {
       title: 'Scribe',
       properties: ['openDirectory'],
-      defaultPath: path.join(require('os').homedir(), ".scribe") // TODO: Access from elsewhere.
-    }).then((result) => {
+      defaultPath: path.join(config.getDataDir())
+    }
+
+    dialog.showOpenDialog(window, options).then((result) => {
       if (result.canceled) { window.webContents.send('path-chosen', null); }
       else { window.webContents.send('path-chosen', result.filePaths); }
     });
