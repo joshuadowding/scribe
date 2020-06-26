@@ -3,6 +3,7 @@ module.exports = { checkPathExists, createDataDirectory, createDataFile, readPro
 const filesystem = require('fs');
 
 const Project = require('./models/project');
+const Settings = require('./models/settings');
 
 function checkPathExists(path) {
   filesystem.access(path, filesystem.constants.F_OK, (error) => {
@@ -48,9 +49,9 @@ function mapProjectToObject(data) {
 }
 
 function mapSettingsToObject(data) {
-  let settings = new Settings();
-  // TODO: Add properties as they're created.
-  return settings;
+  return new Settings({
+    // TODO: Add properties as they're created.
+  });
 }
 
 function writeDataFile(path, data) {

@@ -1,5 +1,9 @@
 class Settings {
-  constructor() {}
+  constructor(options) {
+    if (options !== undefined) {
+      // TODO: Define parameters.
+    }
+  }
 }
 
 module.exports = Settings;

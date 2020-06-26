@@ -1,50 +1,52 @@
 class Folder {
-  folderID;
-  folderName;
-  folderType;
-  folderPath;
-  folderHierarchy = [];
+  constructor(options) {
+    if (options !== undefined) {
+      options['id'] !== undefined ? this.ID = options['id'] : this.ID = undefined;
+      options['name'] !== undefined ? this.Name = options['name'] : this.Name = undefined;
+      options['type'] !== undefined ? this.Type = options['type'] : this.Type = undefined;
+      options['path'] !== undefined ? this.Path = options['path'] : this.Path = undefined;
+      options['hierarchy'] !== undefined ? this.Hierarchy = options['hierarchy'] : this.Hierarchy = [];
+    }
+  }
 
-  constructor() {}
-
-  getID() {
+  get ID() {
     return this.folderID;
   }
 
-  setID(folderID) {
-    this.folderID = folderID;
+  set ID(value) {
+    this.folderID = value;
   }
 
-  getName() {
+  get Name() {
     return this.folderName;
   }
 
-  setName(folderName) {
-    this.folderName = folderName;
+  set Name(value) {
+    this.folderName = value;
   }
 
-  getType() {
+  get Type() {
     return this.folderType;
   }
 
-  setType(folderType) {
-    this.folderType = folderType;
+  set Type(value) {
+    this.folderType = value;
   }
 
-  getPath() {
+  get Path() {
     return this.folderPath;
   }
 
-  setPath(folderPath) {
-    this.folderPath = folderPath;
+  set Path(value) {
+    this.folderPath = value;
   }
 
-  getHierarchy() {
+  get Hierarchy() {
     return this.folderHierarchy;
   }
 
-  setHierarchy(folderHierarchy) {
-    this.folderHierarchy = folderHierarchy;
+  set Hierarchy(value) {
+    this.folderHierarchy = value;
   }
 }
 

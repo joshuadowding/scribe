@@ -59,9 +59,9 @@ function init(options) {
 
       case 'Folder':
         let folder = new Folder();
-        folder.setName(message); // TODO: Sanitize input.
-        folder.setHierarchy([]);
-        folder.setPath(path.join(config.getCurrentProject().ProjectPath, message));
+        folder.Name = message; // TODO: Sanitize input.
+        folder.Hierarchy = [];
+        folder.Path = path.join(config.getCurrentProject().ProjectPath, message);
         config.getCurrentProject().Hierarchy.push(folder);
         break;
     }
