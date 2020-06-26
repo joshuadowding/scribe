@@ -1,17 +1,10 @@
 class Document {
   documentID;
   documentName;
-  documentAuthor;
   documentType;
   documentPath;
 
-  constructor(id, name, author, type, path) {
-    this.documentID = id;
-    this.documentName = name;
-    this.documentAuthor = author;
-    this.documentType = type;
-    this.documentPath = path;
-  }
+  constructor() {}
 
   getID() {
     return this.documentID;
@@ -27,14 +20,6 @@ class Document {
 
   setName(documentName) {
     this.documentName = documentName;
-  }
-
-  getAuthor() {
-    return this.documentAuthor;
-  }
-
-  setAuthor(documentAuthor) {
-    this.documentAuthor = documentAuthor;
   }
 
   getType() {

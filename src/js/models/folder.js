@@ -5,13 +5,7 @@ class Folder {
   folderPath;
   folderHierarchy = [];
 
-  constructor(id, name, type, path) {
-    this.folderID = id;
-    this.folderName = name;
-    this.folderType = type;
-    this.folderPath = path;
-    this.folderHierarchy = [];
-  }
+  constructor() {}
 
   getID() {
     return this.folderID;

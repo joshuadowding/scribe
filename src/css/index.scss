@@ -58,6 +58,7 @@ body {
     color: var(--text-colour);
   }
 
+  button.button,
   input.button {
     background-color: var(--foreground-colour);
     color: var(--text-colour);
@@ -84,6 +85,22 @@ body {
         background-color: var(--link-colour);
       }
     }
+
+    &.toolbar-button {
+      height: 32px;
+      width: 32px;
+      min-width: unset;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      align-content: center;
+      justify-content: center;
+
+      i {
+        font-size: 1.2rem;
+        font-weight: 500;
+      }
+    }
   }
 
   input.text {
@@ -104,6 +121,55 @@ body {
     &:focus {
       outline: none;
     }
+  }
+
+  form.input-form {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    .input-col {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      flex-grow: 1;
+
+      .input-row {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin: 0 0 16px 0;
+        width: 75%;
+
+        label {
+          width: 25%;
+        }
+
+        .text, .button {
+          margin: 0 0 0 16px;
+          width: 75%;
+        }
+      }
+    }
+
+    .control-row {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      margin: 0 0 16px 0;
+
+      .button {
+        &:first-child {
+          margin: 0 16px 0 0;
+        }
+      }
+    }
+  }
+
+  .create-wrapper {
+    height: 100%;
   }
 
   .wizard-wrapper {
@@ -152,51 +218,6 @@ body {
         }
       }
     }
-
-    .create-project {
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-
-      .input-col {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        flex-grow: 1;
-
-        .input-row {
-          display: flex;
-          flex-direction: row;
-          align-items: center;
-          margin: 0 0 16px 0;
-          width: 75%;
-
-          label {
-            width: 25%;
-          }
-
-          .text, .button {
-            margin: 0 0 0 16px;
-            width: 75%;
-          }
-        }
-      }
-
-      .control-row {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        margin: 0 0 16px 0;
-
-        .button {
-          &:first-child {
-            margin: 0 16px 0 0;
-          }
-        }
-      }
-    }
   }
 
   .about-wrapper {
@@ -219,6 +240,58 @@ body {
 
       &#editor-main {
         min-width: 50%;
+      }
+
+      .editor-toolbar {
+        display: flex;
+        flex-direction: row;
+        min-height: 32px;
+        width: 100%;
+        padding: 6px;
+        border-bottom: 1px solid var(--foreground-colour);
+
+        .dropdown-wrapper {
+          position: relative;
+
+          &:not(:last-child) {
+            margin: 0 6px 0 0;
+          }
+
+          .toolbar-dropdown {
+            display: none;
+            position: absolute;
+            flex-direction: column;
+            top: 32px;
+            left: 0;
+            background-color: var(--background-colour);
+            border-radius: .35rem;
+            padding: 6px;
+            @include box-shadow(0, 5px, 15px, 0, var(--box-shadow));
+
+            &.show {
+              display: flex;
+            }
+
+            .dropdown-button {
+              height: 32px;
+              display: flex;
+              flex-direction: row;
+              align-items: center;
+              align-content: center;
+              justify-content: flex-start;
+
+              &:not(:last-child) {
+                margin: 0 0 6px 0;
+              }
+
+              i {
+                font-size: 1.2rem;
+                font-weight: 500;
+                margin: 0 6px 0 0;
+              }
+            }
+          }
+        }
       }
     }
 

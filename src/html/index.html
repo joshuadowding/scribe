@@ -5,13 +5,29 @@
 
     <link type="text/css" rel="stylesheet" href="../css/index.css">
     <link type="text/css" rel="stylesheet" href="../lib/fonts/inter/inter.css">
+    <link type="text/css" rel="stylesheet" href="../lib/fonts/remix/remixicon.css">
   </head>
   <body>
     <div class="editor-wrapper">
       <div class="editor-column" id="editor-meta">
+        <div class="editor-toolbar">
+          <div class="dropdown-wrapper">
+            <button class="button toolbar-button" id="editor-add" type="button"><i class='ri-add-line'></i></button>
+
+            <div class="dropdown toolbar-dropdown" id="add-dropdown">
+              <button class="button dropdown-button" id="add-file" type="button"><i class='ri-add-line'></i> Document</button>
+              <button class="button dropdown-button" id="add-folder" type="button"><i class='ri-add-line'></i> Folder</button>
+            </div>
+          </div>
+
+          <button class="button toolbar-button" id="editor-remove" type="button"><i class="ri-subtract-line"></i></button>
+        </div>
       </div>
       <div class="editor-handle"></div>
       <div class="editor-column" id="editor-main">
+        <div class="editor-toolbar">
+
+        </div>
       </div>
     </div>
 
@@ -47,6 +63,24 @@
 
         $(document).mouseup(() => { isHandlerDragging = false; });
         $(document).mouseleave(() => { isHandlerDragging = false; });
+
+        $('#editor-add').click(function() {
+          if ($('#add-dropdown').hasClass('show')) {
+            $('#add-dropdown').removeClass('show');
+          } else {
+            $('#add-dropdown').addClass('show');
+          }
+        });
+
+        $('#add-file').click(function() {
+          ipc.send('create-file');
+          $('#add-dropdown').removeClass('show');
+        });
+
+        $('#add-folder').click(function() {
+          ipc.send('create-folder');
+          $('#add-dropdown').removeClass('show');
+        });
       });
 
       ipc.on('toggle-theme', () => {

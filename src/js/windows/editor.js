@@ -6,6 +6,7 @@ const path = require('path');
 const config = require('../config');
 const menu = require('../helpers/menu');
 const wizard = require('../dialogs/wizard');
+const create = require('../dialogs/create');
 
 function init() {
   if (config.getWindow('Editor')) {
@@ -51,6 +52,14 @@ function init() {
 
   ipcMain.on('current-theme', (event, message) => {
     config.setCurrentTheme(message);
+  });
+
+  ipcMain.on('create-file', () => {
+    create.init('File');
+  });
+
+  ipcMain.on('create-folder', () => {
+    create.init('Folder');
   });
 
   //window.webContents.openDevTools(); // DEBUG: Disable when not required.
