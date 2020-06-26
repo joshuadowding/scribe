@@ -76,7 +76,7 @@ function init() {
     window.destroy(); // NOTE: Because we catch the 'close' event; let's just destroy it.
   });
 
-  ipcMain.on('load-project', (event, message) => {
+  ipcMain.on('load-project', () => {
     dialog.showOpenDialog(window, {
       title: 'Scribe',
       properties: ['openFile'],

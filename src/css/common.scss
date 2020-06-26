@@ -41,3 +41,9 @@ $P1: #E53068; // Pink
   -o-transition: $element $speed $style;
   transition: $element $speed $style;
 }
+
+@mixin box-shadow($h-offset, $v-offset, $blur, $spread, $colour) {
+  -webkit-box-shadow: $h-offset $v-offset $blur $spread $colour;
+  -moz-box-shadow: $h-offset $v-offset $blur $spread $colour;
+  box-shadow: $h-offset $v-offset $blur $spread $colour;
+}
