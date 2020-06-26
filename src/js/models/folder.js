@@ -9,45 +9,20 @@ class Folder {
     }
   }
 
-  get ID() {
-    return this.folderID;
-  }
+  get ID() { return this.folderID; }
+  set ID(value) { this.folderID = value; }
 
-  set ID(value) {
-    this.folderID = value;
-  }
+  get Name() { return this.folderName; }
+  set Name(value) { this.folderName = value; }
 
-  get Name() {
-    return this.folderName;
-  }
+  get Type() { return this.folderType; }
+  set Type(value) { this.folderType = value; }
 
-  set Name(value) {
-    this.folderName = value;
-  }
+  get Path() { return this.folderPath; }
+  set Path(value) { this.folderPath = value; }
 
-  get Type() {
-    return this.folderType;
-  }
-
-  set Type(value) {
-    this.folderType = value;
-  }
-
-  get Path() {
-    return this.folderPath;
-  }
-
-  set Path(value) {
-    this.folderPath = value;
-  }
-
-  get Hierarchy() {
-    return this.folderHierarchy;
-  }
-
-  set Hierarchy(value) {
-    this.folderHierarchy = value;
-  }
+  get Hierarchy() { return this.folderHierarchy; }
+  set Hierarchy(value) { this.folderHierarchy = value; }
 }
 
 module.exports = Folder

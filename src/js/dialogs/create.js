@@ -52,8 +52,8 @@ function init(options) {
     switch(type) {
       case 'File':
         let file = new File();
-        file.setName(message); // TODO: Sanitize input.
-        file.setPath(path.join(config.getCurrentProject().ProjectPath, message + ".md"));
+        file.Name = message; // TODO: Sanitize input.
+        file.Path = path.join(config.getCurrentProject().ProjectPath, message + ".md");
         config.getCurrentProject().Hierarchy.push(file);
         break;
 
