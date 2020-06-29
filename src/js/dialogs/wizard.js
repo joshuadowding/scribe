@@ -77,6 +77,10 @@ function init() {
 
     const strappedProject = change(project, function(path, value, previousValue) {
       console.log("Change: " + path + " " + value + " " + previousValue);
+    }, {
+      pathAsArray: true,
+      ignoreUnderscores: true,
+      ignoreSymbols: true
     });
 
     config.setCurrentProject(strappedProject);
@@ -98,6 +102,10 @@ function init() {
         if (project !== undefined) {
           const strappedProject = change(project, function(path, value, previousValue) {
             console.log("Change: " + path + " " + value + " " + previousValue);
+          }, {
+            pathAsArray: true,
+            ignoreUnderscores: true,
+            ignoreSymbols: true
           });
 
           config.setCurrentProject(strappedProject);
