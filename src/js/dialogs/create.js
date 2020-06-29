@@ -36,7 +36,7 @@ function init(options) {
 
   window.once('closed', () => {
     config.removeWindow('Create');
-  })
+  });
 
   window.setMenuBarVisibility(false);
 
@@ -48,12 +48,12 @@ function init(options) {
     config.addWindow('About', window);
   });
 
-  ipcMain.on('form-create', (event, message) => {
+  ipcMain.once('form-create', (event, message) => {
     switch(type) {
       case 'File':
         let file = new File();
         file.Name = message; // TODO: Sanitize input.
-        file.Path = path.join(config.getCurrentProject().ProjectPath, message + ".md");
+        file.Path = path.join(config.getCurrentProject().ProjectPath, (message + ".md"));
         config.getCurrentProject().Hierarchy.push(file);
         break;
 
@@ -70,7 +70,7 @@ function init(options) {
     window.destroy();
   });
 
-  ipcMain.on('form-cancel', () => {
+  ipcMain.once('form-cancel', () => {
     window.destroy();
   });
 
