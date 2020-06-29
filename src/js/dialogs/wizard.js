@@ -2,6 +2,7 @@ module.exports = { init }
 
 const { BrowserWindow, ipcMain, dialog } = require('electron');
 const path = require('path');
+const change = require('on-change');
 
 const Project = require('../models/project');
 const config = require('../config');
@@ -74,7 +75,11 @@ function init() {
 
     project.FilePath = filename;
 
-    config.setCurrentProject(project);
+    const strappedProject = change(project, function(path, value, previousValue) {
+      console.log("Change: " + path + " " + value + " " + previousValue);
+    });
+
+    config.setCurrentProject(strappedProject);
     window.destroy(); // NOTE: Because we catch the 'close' event; let's just destroy it.
   });
 
@@ -89,9 +94,13 @@ function init() {
     dialog.showOpenDialog(window, options).then((result) => {
       if (result.canceled) { window.webContents.send('path-chosen', null); }
       else {
-        const data = common.readProjectFile(result.filePaths[0]);
-        if (data !== undefined) {
-          config.setCurrentProject(data);
+        const project = common.readProjectFile(result.filePaths[0]);
+        if (project !== undefined) {
+          const strappedProject = change(project, function(path, value, previousValue) {
+            console.log("Change: " + path + " " + value + " " + previousValue);
+          });
+
+          config.setCurrentProject(strappedProject);
           window.destroy();
         } else {
           const options = { type: 'error', buttons: ['Ok'], title: 'Error', message: 'Unable to parse project file. Please try again.' };
