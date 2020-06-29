@@ -42,7 +42,7 @@ function mapProjectToObject(data) {
   return new Project({
     name: data.projectName,
     author: data.projectAuthor,
-    filePath: data.filePath,
+    filePath: data.projectFilePath,
     projectPath: data.projectPath,
     hierarchy: data.projectHierarchy
   });
