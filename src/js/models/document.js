@@ -1,4 +1,9 @@
 class Document {
+  _documentID;
+  _documentName;
+  _documentType;
+  _documentPath;
+
   constructor(options) {
     if (options !== undefined) {
       options['id'] !== undefined ? this.ID = options['id'] : this.ID = undefined;
@@ -8,17 +13,17 @@ class Document {
     }
   }
 
-  get ID() { return this.documentID; }
-  set ID(value) { this.documentID = value; }
+  get ID() { return this._documentID; }
+  set ID(value) { this._documentID = value; }
 
-  get Name() { return this.documentName; }
-  set Name(value) { this.documentName = value; }
+  get Name() { return this._documentName; }
+  set Name(value) { this._documentName = value; }
 
-  get Type() { return this.documentType; }
-  set Type(value) { this.documentType = value; }
+  get Type() { return this._documentType; }
+  set Type(value) { this._documentType = value; }
 
-  get Path() { return this.documentPath; }
-  set Path(value) { this.documentPath = value; }
+  get Path() { return this._documentPath; }
+  set Path(value) { this._documentPath = value; }
 }
 
 module.exports = Document

@@ -1,4 +1,10 @@
 class Folder {
+  _folderID;
+  _folderName;
+  _folderType;
+  _folderPath;
+  _folderHierarchy;
+
   constructor(options) {
     if (options !== undefined) {
       options['id'] !== undefined ? this.ID = options['id'] : this.ID = undefined;
@@ -9,20 +15,20 @@ class Folder {
     }
   }
 
-  get ID() { return this.folderID; }
-  set ID(value) { this.folderID = value; }
+  get ID() { return this._folderID; }
+  set ID(value) { this._folderID = value; }
 
-  get Name() { return this.folderName; }
-  set Name(value) { this.folderName = value; }
+  get Name() { return this._folderName; }
+  set Name(value) { this._folderName = value; }
 
-  get Type() { return this.folderType; }
-  set Type(value) { this.folderType = value; }
+  get Type() { return this._folderType; }
+  set Type(value) { this._folderType = value; }
 
-  get Path() { return this.folderPath; }
-  set Path(value) { this.folderPath = value; }
+  get Path() { return this._folderPath; }
+  set Path(value) { this._folderPath = value; }
 
-  get Hierarchy() { return this.folderHierarchy; }
-  set Hierarchy(value) { this.folderHierarchy = value; }
+  get Hierarchy() { return this._folderHierarchy; }
+  set Hierarchy(value) { this._folderHierarchy = value; }
 }
 
 module.exports = Folder

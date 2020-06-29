@@ -49,22 +49,22 @@ function init(options) {
   });
 
   ipcMain.once('form-create', (event, message) => {
-    switch(type) {
-      case 'File':
-        let file = new File();
-        file.Name = message; // TODO: Sanitize input.
-        file.Path = path.join(config.getCurrentProject().ProjectPath, (message + ".md"));
-        config.getCurrentProject().Hierarchy.push(file);
-        break;
+    let item = null;
 
-      case 'Folder':
-        let folder = new Folder();
-        folder.Name = message; // TODO: Sanitize input.
-        folder.Hierarchy = [];
-        folder.Path = path.join(config.getCurrentProject().ProjectPath, message);
-        config.getCurrentProject().Hierarchy.push(folder);
-        break;
+    if (type === 'File') {
+      item = new File({
+        name: message, // TODO: Sanitize input.
+        path: path.join(config.getCurrentProject().ProjectPath, (message + ".md"))
+      });
     }
+    else if (type === 'Folder') {
+      item = new Folder({
+        name: message, // TODO: Sanitize input.
+        path: path.join(config.getCurrentProject().ProjectPath, message)
+      });
+    }
+
+    if (item !== null) { config.getCurrentProject().Hierarchy.push(item); }
 
     common.writeDataFile(config.getCurrentProject().FilePath, JSON.stringify(config.getCurrentProject()));
     window.destroy();
