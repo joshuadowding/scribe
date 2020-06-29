@@ -40,11 +40,11 @@ function readSettingsFile(path) {
 
 function mapProjectToObject(data) {
   return new Project({
-    name: data.projectName,
-    author: data.projectAuthor,
-    filePath: data.projectFilePath,
-    projectPath: data.projectPath,
-    hierarchy: data.projectHierarchy
+    name: data._projectName,
+    author: data._projectAuthor,
+    filePath: data._projectFilePath,
+    projectPath: data._projectPath,
+    hierarchy: data._projectHierarchy
   });
 }
 

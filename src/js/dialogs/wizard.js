@@ -67,16 +67,16 @@ function init() {
     let filepath = path.join(project.ProjectPath, project.Name);
     let filename = path.join(filepath, project.Name + ".scri");
 
+    project.FilePath = filename;
+
     let check = common.checkPathExists(filepath);
     if (!check) { common.createDataDirectory(filepath); }
 
     check = common.checkPathExists(filename);
     if (!check) { common.createDataFile(filename, data); }
 
-    project.FilePath = filename;
-
-    const strappedProject = change(project, function(path, value, previousValue) {
-      console.log("Change: " + path + " " + value + " " + previousValue);
+    const strappedProject = change(project, function(_path, _value, _previousValue) {
+      config.getWindow('Editor').update({ _path, _value, _previousValue });
     }, {
       pathAsArray: true,
       ignoreUnderscores: true,
@@ -100,8 +100,8 @@ function init() {
       else {
         const project = common.readProjectFile(result.filePaths[0]);
         if (project !== undefined) {
-          const strappedProject = change(project, function(path, value, previousValue) {
-            console.log("Change: " + path + " " + value + " " + previousValue);
+          const strappedProject = change(project, function(_path, _value, _previousValue) {
+            config.getWindow('Editor').update({ _path, _value, _previousValue });
           }, {
             pathAsArray: true,
             ignoreUnderscores: true,
