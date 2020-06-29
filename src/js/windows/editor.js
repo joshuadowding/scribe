@@ -1,4 +1,4 @@
-module.exports = { init }
+module.exports = { init, update }
 
 const { BrowserWindow, ipcMain, nativeTheme, dialog } = require('electron');
 const path = require('path');
@@ -12,6 +12,13 @@ function init() {
   if (config.getWindow('Editor')) {
     return config.getWindow('Editor').show();
   }
+
+  BrowserWindow.prototype.update = (options) => {
+    if (options !== undefined) {
+      // TODO: Refresh interface.
+      console.log(options);
+    }
+  };
 
   const window = new BrowserWindow({
     width: 1024,
@@ -62,4 +69,10 @@ function init() {
   });
 
   //window.webContents.openDevTools(); // DEBUG: Disable when not required.
+}
+
+function update(options) {
+  if (options !== undefined) {
+    // TODO: Refresh interface.
+  }
 }
