@@ -45,7 +45,7 @@ function init(options) {
   });
 
   window.webContents.on('did-finish-load', () => {
-    config.addWindow('About', window);
+    config.addWindow('Create', window);
   });
 
   ipcMain.once('form-create', (event, message) => {
