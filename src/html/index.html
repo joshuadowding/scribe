@@ -40,7 +40,7 @@
       const ipc = require('electron').ipcRenderer;
       const theme = require('../js/helpers/theme');
 
-      $(document).ready(() => {
+      $(document).ready(function() {
         // Detect the system theme preference on start-up:
         let currentTheme = theme.detectTheme();
         theme.chooseTheme(currentTheme);
@@ -85,6 +85,16 @@
           // TODO: Support selecting items in the hierarchy to create sub-items.
           ipc.send('create-folder');
           $('#add-dropdown').removeClass('show');
+        });
+
+        $('.editor-items').on('click', '.item', function() {
+          $(this).parent().each(() => { $('.item').removeClass('selected'); });
+
+          if ($(this).hasClass('selected')) {
+            $(this).removeClass('selected');
+          } else {
+            $(this).addClass('selected');
+          }
         });
       });
 

@@ -306,6 +306,14 @@ body {
           display: flex;
           align-items: center;
           padding: 8px;
+
+          &:hover {
+            background-color: var(--foreground-colour);
+          }
+
+          &.selected {
+            background-color: var(--link-colour);
+          }
         }
       }
     }
