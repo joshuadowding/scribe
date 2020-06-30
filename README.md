@@ -13,7 +13,8 @@ An alternative word processor designed for creative writers.
 - [node-sass (4.14.1)](https://www.npmjs.com/package/node-sass)
 - [react (16.13.1)](https://www.npmjs.com/package/react)
 - [react-dom (16.13.1)](https://www.npmjs.com/package/react-dom)
+- [uuid (8.2.0)](https://www.npmjs.com/package/uuid)
 
 ```shell script
-npm install --save-dev electron electron-forge electron-rebuild on-change jquery jsdom node-sass react react-dom
+npm install --save-dev electron electron-forge electron-rebuild on-change jquery jsdom node-sass react react-dom uuid
 ```

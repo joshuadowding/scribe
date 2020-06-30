@@ -90,11 +90,8 @@
         $('.editor-items').on('click', '.item', function() {
           $(this).parent().each(() => { $('.item').removeClass('selected'); });
 
-          if ($(this).hasClass('selected')) {
-            $(this).removeClass('selected');
-          } else {
-            $(this).addClass('selected');
-          }
+          if ($(this).hasClass('selected')) { $(this).removeClass('selected'); }
+          else { $(this).addClass('selected'); }
         });
       });
 

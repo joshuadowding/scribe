@@ -1,6 +1,6 @@
 class Folder {
   _objectType;
-  _folderID;
+  _objectID;
   _folderName;
   _folderType;
   _folderPath;
@@ -20,8 +20,8 @@ class Folder {
   get ObjectType() { return this._objectType; }
   set ObjectType(value) { this._objectType = value; }
 
-  get ID() { return this._folderID; }
-  set ID(value) { this._folderID = value; }
+  get ID() { return this._objectID; }
+  set ID(value) { this._objectID = value; }
 
   get Name() { return this._folderName; }
   set Name(value) { this._folderName = value; }

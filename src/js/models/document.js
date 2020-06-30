@@ -1,6 +1,6 @@
 class Document {
   _objectType;
-  _documentID;
+  _objectID;
   _documentName;
   _documentType;
   _documentPath;
@@ -18,8 +18,8 @@ class Document {
   get ObjectType() { return this._objectType; }
   set ObjectType(value) { this._objectType = value; }
 
-  get ID() { return this._documentID; }
-  set ID(value) { this._documentID = value; }
+  get ID() { return this._objectID; }
+  set ID(value) { this._objectID = value; }
 
   get Name() { return this._documentName; }
   set Name(value) { this._documentName = value; }

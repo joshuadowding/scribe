@@ -1,6 +1,7 @@
 module.exports = { init }
 
 const { BrowserWindow, ipcMain } = require('electron');
+const { v4: uuidv4 } = require('uuid');
 const path = require('path');
 
 const File = require('../models/document');
@@ -53,11 +54,13 @@ function init(options) {
 
     if (type === 'File') {
       item = new File({
+        id: uuidv4(),
         name: message, // TODO: Sanitize input.
         path: path.join(config.getCurrentProject().ProjectPath, (message + ".md"))
       });
     } else if (type === 'Folder') {
       item = new Folder({
+        id: uuidv4(),
         name: message, // TODO: Sanitize input.
         path: path.join(config.getCurrentProject().ProjectPath, message)
       });
