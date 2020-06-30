@@ -75,9 +75,7 @@ function init() {
     check = common.checkPathExists(filename);
     if (!check) { common.createDataFile(filename, data); }
 
-    const strappedProject = change(project, function(_path, _value, _previousValue) {
-      config.getWindow('Editor').update({ _path, _value, _previousValue });
-    }, {
+    const strappedProject = change(project, () => config.getWindow('Editor').update(), {
       pathAsArray: true,
       ignoreUnderscores: true,
       ignoreSymbols: true
@@ -101,9 +99,7 @@ function init() {
         const project = common.readProjectFile(result.filePaths[0]);
 
         if (project !== undefined) {
-          const strappedProject = change(project, function(_path, _value, _previousValue) {
-            config.getWindow('Editor').update({ _path, _value, _previousValue });
-          }, {
+          const strappedProject = change(project, () => config.getWindow('Editor').update(), {
             pathAsArray: true,
             ignoreUnderscores: true,
             ignoreSymbols: true

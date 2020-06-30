@@ -99,11 +99,9 @@
       });
 
       ipc.on('update-project', (error, data) => {
-        $('#item-list').empty();
+        $('#item-list').empty(); // Empty the item-list before we re-populate it.
 
         for (let i = 0; i < data.length; i++) {
-          console.log(data[i]);
-
           let element = document.createElement('div');
           $(element).addClass('item');
 

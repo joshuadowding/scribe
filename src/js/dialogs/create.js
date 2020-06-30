@@ -56,8 +56,7 @@ function init(options) {
         name: message, // TODO: Sanitize input.
         path: path.join(config.getCurrentProject().ProjectPath, (message + ".md"))
       });
-    }
-    else if (type === 'Folder') {
+    } else if (type === 'Folder') {
       item = new Folder({
         name: message, // TODO: Sanitize input.
         path: path.join(config.getCurrentProject().ProjectPath, message)

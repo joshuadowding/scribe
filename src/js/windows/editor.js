@@ -71,19 +71,22 @@ function init() {
   window.webContents.openDevTools(); // DEBUG: Disable when not required.
 }
 
-function update(options) {
-  if (options !== undefined) {
-    let values = options._value;
-    let hierarchy = [];
+function update() {
+  let list = [];
+  populate(config.getCurrentProject().Hierarchy, list);
+  config.getWindow('Editor').webContents.send('update-project', list);
+}
 
-    for (let i = 0; i < values.length; i++) {
-      if (values[i] instanceof Folder) {
-        hierarchy.push(values[i]._folderName);
-      } else if (values[i] instanceof File) {
-        hierarchy.push(values[i]._documentName);
+function populate(hierarchy, list) {
+  for (let i = 0; i < hierarchy.length; i++) {
+    if (hierarchy[i] instanceof Folder) {
+      if (hierarchy[i]._folderHierarchy.length !== 0) {
+        populate(hierarchy[i]._folderHierarchy, list); // Recurse
       }
-    }
 
-    config.getWindow('Editor').webContents.send('update-project', hierarchy);
+      list.push(hierarchy[i]._folderName);
+    } else if (hierarchy[i] instanceof File) {
+      list.push(hierarchy[i]._documentName);
+    }
   }
 }
