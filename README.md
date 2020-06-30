@@ -13,5 +13,5 @@ An alternative word processor designed for creative writers.
 - [node-sass (4.14.1)](https://www.npmjs.com/package/node-sass)
 
 ```
-npm install --save-dev electron electron-forge electron-rebuild on-change jquery jsdom node-sass
+npm install --save-dev electron electron-forge electron-rebuild on-change jquery jsdom node-sass react react-dom
 ```

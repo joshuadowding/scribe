@@ -61,7 +61,6 @@
     "node-sass": "^4.14.1",
     "on-change": "^2.0.1",
     "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "remixicon": "^2.5.0"
+    "react-dom": "^16.13.1"
   }
 }
