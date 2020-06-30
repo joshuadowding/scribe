@@ -231,7 +231,8 @@ body {
     .editor-column {
       background-color: var(--background-colour);
       box-sizing: border-box;
-      //flex: 1 1 auto;
+      overflow-x: hidden;
+      overflow-y: scroll;
 
       &#editor-meta {
         width: 256px;
@@ -239,7 +240,7 @@ body {
       }
 
       &#editor-main {
-        min-width: 50%;
+        width: 100%;
       }
 
       .editor-toolbar {

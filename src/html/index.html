@@ -99,6 +99,8 @@
       });
 
       ipc.on('update-project', (error, data) => {
+        $('#item-list').empty();
+
         for (let i = 0; i < data.length; i++) {
           console.log(data[i]);
 
