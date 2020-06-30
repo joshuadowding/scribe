@@ -4,6 +4,8 @@ const filesystem = require('fs');
 
 const Project = require('./models/project');
 const Settings = require('./models/settings');
+const File = require('./models/document');
+const Folder = require('./models/folder');
 
 function checkPathExists(path) {
   filesystem.access(path, filesystem.constants.F_OK, (error) => {
@@ -39,13 +41,28 @@ function readSettingsFile(path) {
 }
 
 function mapProjectToObject(data) {
-  return new Project({
+  let project = new Project({
     name: data._projectName,
     author: data._projectAuthor,
     filePath: data._projectFilePath,
-    projectPath: data._projectPath,
-    hierarchy: data._projectHierarchy
+    projectPath: data._projectPath
   });
+
+  for (let i = 0; i < data._projectHierarchy.length; i++) {
+    if (data._projectHierarchy[i]._objectType === 'File') {
+      project.Hierarchy.push(new File({
+        name: data._projectHierarchy[i]._documentName,
+        path: data._projectHierarchy[i]._documentPath
+      }));
+    } else if (data._projectHierarchy[i]._objectType === 'Folder') { // TODO: Make recursive.
+      project.Hierarchy.push(new Folder({
+        name: data._projectHierarchy[i]._folderName,
+        path: data._projectHierarchy[i]._folderPath
+      }));
+    }
+  }
+
+  return project;
 }
 
 function mapSettingsToObject(data) {

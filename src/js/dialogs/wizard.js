@@ -99,6 +99,7 @@ function init() {
       if (result.canceled) { window.webContents.send('path-chosen', null); }
       else {
         const project = common.readProjectFile(result.filePaths[0]);
+
         if (project !== undefined) {
           const strappedProject = change(project, function(_path, _value, _previousValue) {
             config.getWindow('Editor').update({ _path, _value, _previousValue });

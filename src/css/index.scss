@@ -293,6 +293,19 @@ body {
           }
         }
       }
+
+      .editor-items {
+        .item {
+          min-height: 24px;
+          width: 100%;
+          border-bottom: 1px solid var(--foreground-colour);
+          color: var(--text-colour);
+          font-size: 1.2rem;
+          display: flex;
+          align-items: center;
+          padding: 8px;
+        }
+      }
     }
 
     .editor-handle {

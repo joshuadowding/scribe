@@ -3,6 +3,9 @@ module.exports = { init, update }
 const { BrowserWindow, ipcMain, nativeTheme, dialog } = require('electron');
 const path = require('path');
 
+const Folder = require('../models/folder');
+const File = require('../models/document');
+
 const config = require('../config');
 const menu = require('../helpers/menu');
 const wizard = require('../dialogs/wizard');
@@ -14,10 +17,7 @@ function init() {
   }
 
   BrowserWindow.prototype.update = (options) => {
-    if (options !== undefined) {
-      // TODO: Refresh interface.
-      console.log(options);
-    }
+    update(options);
   };
 
   const window = new BrowserWindow({
@@ -68,11 +68,22 @@ function init() {
     create.init({ type: 'Folder', selected: undefined });
   });
 
-  //window.webContents.openDevTools(); // DEBUG: Disable when not required.
+  window.webContents.openDevTools(); // DEBUG: Disable when not required.
 }
 
 function update(options) {
   if (options !== undefined) {
-    // TODO: Refresh interface.
+    let values = options._value;
+    let hierarchy = [];
+
+    for (let i = 0; i < values.length; i++) {
+      if (values[i] instanceof Folder) {
+        hierarchy.push(values[i]._folderName);
+      } else if (values[i] instanceof File) {
+        hierarchy.push(values[i]._documentName);
+      }
+    }
+
+    config.getWindow('Editor').webContents.send('update-project', hierarchy);
   }
 }

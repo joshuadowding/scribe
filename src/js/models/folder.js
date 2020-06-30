@@ -1,4 +1,5 @@
 class Folder {
+  _objectType;
   _folderID;
   _folderName;
   _folderType;
@@ -12,8 +13,12 @@ class Folder {
       options['type'] !== undefined ? this.Type = options['type'] : this.Type = undefined;
       options['path'] !== undefined ? this.Path = options['path'] : this.Path = undefined;
       options['hierarchy'] !== undefined ? this.Hierarchy = options['hierarchy'] : this.Hierarchy = [];
+      this.ObjectType = 'Folder';
     }
   }
+
+  get ObjectType() { return this._objectType; }
+  set ObjectType(value) { this._objectType = value; }
 
   get ID() { return this._folderID; }
   set ID(value) { this._folderID = value; }
