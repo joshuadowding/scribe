@@ -111,8 +111,12 @@
         for (let i = 0; i < data.length; i++) {
           let element = document.createElement('div');
           $(element).addClass('item');
+          $(element).data('id', data[i].id);
 
-          let content = document.createTextNode(data[i]);
+          if (data[i].type === 'Folder') { $(element).addClass('item-folder'); }
+          else if (data[i].type === 'File') { $(element).addClass('item-file'); }
+
+          let content = document.createTextNode(data[i].name);
           element.appendChild(content);
 
           let parent = document.getElementById('item-list');

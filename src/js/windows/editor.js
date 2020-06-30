@@ -84,9 +84,17 @@ function populate(hierarchy, list) {
         populate(hierarchy[i]._folderHierarchy, list); // Recurse
       }
 
-      list.push(hierarchy[i]._folderName);
+      list.push({
+        id: hierarchy[i]._objectID,
+        type: hierarchy[i]._objectType,
+        name: hierarchy[i]._folderName
+      });
     } else if (hierarchy[i] instanceof File) {
-      list.push(hierarchy[i]._documentName);
+      list.push({
+        id: hierarchy[i]._objectID,
+        type: hierarchy[i]._objectType,
+        name: hierarchy[i]._documentName
+      });
     }
   }
 }

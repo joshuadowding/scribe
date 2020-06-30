@@ -51,11 +51,15 @@ function mapProjectToObject(data) {
   for (let i = 0; i < data._projectHierarchy.length; i++) {
     if (data._projectHierarchy[i]._objectType === 'File') {
       project.Hierarchy.push(new File({
+        id: data._projectHierarchy[i]._objectID,
+        type: data._projectHierarchy[i]._objectType,
         name: data._projectHierarchy[i]._documentName,
         path: data._projectHierarchy[i]._documentPath
       }));
     } else if (data._projectHierarchy[i]._objectType === 'Folder') { // TODO: Make recursive.
       project.Hierarchy.push(new Folder({
+        id: data._projectHierarchy[i]._objectID,
+        type: data._projectHierarchy[i]._objectType,
         name: data._projectHierarchy[i]._folderName,
         path: data._projectHierarchy[i]._folderPath
       }));
