@@ -65,9 +65,7 @@ function init() {
 
     let data = JSON.stringify(project);
     let filepath = path.join(project.ProjectPath, project.Name);
-    let filename = path.join(filepath, project.Name + ".scri");
-
-    project.FilePath = filename;
+    let filename = project.FilePath = path.join(filepath, project.Name + ".scri");
 
     let check = common.checkPathExists(filepath);
     if (!check) { common.createDataDirectory(filepath); }
@@ -75,13 +73,13 @@ function init() {
     check = common.checkPathExists(filename);
     if (!check) { common.createDataFile(filename, data); }
 
-    const strappedProject = change(project, () => config.getWindow('Editor').update(), {
+    config.setCurrentProject(change(project, () => config.getWindow('Editor').update(), {
       pathAsArray: true,
       ignoreUnderscores: true,
       ignoreSymbols: true
-    });
+    }));
 
-    config.setCurrentProject(strappedProject);
+    config.getWindow('Editor').update();
     window.destroy(); // NOTE: Because we catch the 'close' event; let's just destroy it.
   });
 
@@ -99,14 +97,14 @@ function init() {
         const project = common.readProjectFile(result.filePaths[0]);
 
         if (project !== undefined) {
-          const strappedProject = change(project, () => config.getWindow('Editor').update(), {
+          config.setCurrentProject(change(project, () => config.getWindow('Editor').update(), {
             pathAsArray: true,
             ignoreUnderscores: true,
             ignoreSymbols: true
-          });
+          }));
 
-          config.setCurrentProject(strappedProject);
-          window.destroy();
+          config.getWindow('Editor').update();
+          window.destroy(); // NOTE: Because we catch the 'close' event; let's just destroy it.
         } else {
           const options = { type: 'error', buttons: ['Ok'], title: 'Error', message: 'Unable to parse project file. Please try again.' };
           dialog.showMessageBoxSync(window, options);
