@@ -63,7 +63,7 @@ function populateHierarchy(hierarchy, project) {
       });
 
       if (hierarchy[i]._folderHierarchy.length !== 0) {
-        populateHierarchy(hierarchy[i]._folderHierarchy, folder._folderHierarchy); // Recurse
+        populateHierarchy(hierarchy[i]._folderHierarchy, folder); // Recurse
       }
 
       project.Hierarchy.push(folder);

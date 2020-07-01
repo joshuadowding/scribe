@@ -80,7 +80,7 @@ function update() {
 function populate(hierarchy, list) {
   for (let i = 0; i < hierarchy.length; i++) {
     if (hierarchy[i] instanceof Folder) {
-      let folderItems = []
+      let folderItems = [];
 
       if (hierarchy[i]._folderHierarchy.length !== 0) {
         populate(hierarchy[i]._folderHierarchy, folderItems); // Recurse
