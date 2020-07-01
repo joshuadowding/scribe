@@ -66,7 +66,18 @@ function init(options) {
       });
     }
 
-    if (item !== null) { config.getCurrentProject().Hierarchy.push(item); }
+    if (item !== null) {
+      if (selected !== undefined) {
+        let index = config.getCurrentProject().getHierarchyIndex(selected);
+        let selectedItem = config.getCurrentProject().Hierarchy[index];
+
+        if (selectedItem instanceof Folder) {
+          config.getCurrentProject().Hierarchy[index].Hierarchy.push(item);
+        } else {
+          config.getCurrentProject().Hierarchy.push(item);
+        }
+      } else { config.getCurrentProject().Hierarchy.push(item); }
+    }
 
     common.writeDataFile(config.getCurrentProject().FilePath, JSON.stringify(config.getCurrentProject()));
     window.destroy();

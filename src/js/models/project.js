@@ -29,6 +29,14 @@ class Project {
 
   get Hierarchy() { return this._projectHierarchy; }
   set Hierarchy(value) { this._projectHierarchy = value; }
+
+  getHierarchyIndex(value) {
+    for (let i = 0; i < this.Hierarchy.length; i++) {
+      if (this.Hierarchy[i].ID === value) {
+        return this.Hierarchy.findIndex(x => x.ID === value);
+      }
+    }
+  }
 }
 
 module.exports = Project

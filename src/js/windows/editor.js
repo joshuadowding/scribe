@@ -60,12 +60,12 @@ function init() {
     config.setCurrentTheme(message);
   });
 
-  ipcMain.on('create-file', () => {
-    create.init({ type: 'File', selected: undefined });
+  ipcMain.on('create-file', (event, data) => {
+    create.init({ type: 'File', selected: data });
   });
 
-  ipcMain.on('create-folder', () => {
-    create.init({ type: 'Folder', selected: undefined });
+  ipcMain.on('create-folder', (event, data) => {
+    create.init({ type: 'Folder', selected: data });
   });
 
   window.webContents.openDevTools(); // DEBUG: Disable when not required.
