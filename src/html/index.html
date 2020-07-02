@@ -39,6 +39,7 @@
     <script type="text/javascript">
       const ipc = require('electron').ipcRenderer;
       const theme = require('../js/helpers/theme');
+      const test = require('../js/renderer/test');
 
       let currentSelected;
 
@@ -110,21 +111,7 @@
 
       ipc.on('update-project', (error, data) => {
         $('#item-list').empty(); // Empty the item-list before we re-populate it.
-
-        for (let i = 0; i < data.length; i++) {
-          let element = document.createElement('div');
-          $(element).addClass('item');
-          $(element).data('id', data[i].id);
-
-          if (data[i].type === 'Folder') { $(element).addClass('item-folder'); }
-          else if (data[i].type === 'File') { $(element).addClass('item-file'); }
-
-          let content = document.createTextNode(data[i].name);
-          element.appendChild(content);
-
-          let parent = document.getElementById('item-list');
-          parent.appendChild(element);
-        }
+        test.init(data);
       });
     </script>
   </body>
