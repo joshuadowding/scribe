@@ -1,30 +1,36 @@
-module.exports = { init }
+const { app, BrowserWindow } = require('electron');
 
-const Settings = require('./models/settings');
-const editor = require('./windows/editor');
-const common = require('./common');
 const config = require('./config');
 
-function init() {
-  let settings = new Settings();
+const main = require('./main/index');
+const renderer = require('./renderer/index');
 
-  // Check if the data directory exists, if not, create an empty directory:
-  let check = common.checkPathExists(config.getDataDir());
-  if (!check) { common.createDataDirectory(config.getDataDir()); }
-  check = false; // Reset check for second check.
+// Handle creating/removing shortcuts on Windows when installing/uninstalling:
+if(require('electron-squirrel-startup')) {
+  app.quit();
+}
 
-  // Check if the configuration file exists; if not, create an empty (placeholder) file:
-  check = common.checkPathExists(config.getConfDir());
-  if (!check) { common.createDataFile(config.getConfDir(), JSON.stringify(settings)); }
-  else {
-    const data = common.readSettingsFile(config.getConfDir());
-    if (data !== undefined) { config.setCurrentSettings(data); }
-    else {
-      // TODO: Handle invalid settings file.
-    }
+app.on('ready', () => {
+  init();
+});
+
+app.on('activate', () => {
+  if(BrowserWindow.getAllWindows().length === 0) {
+    init();
   }
+});
 
-  config.setCurrentSettings(settings);
+app.on('window-all-closed', () => {
+  if(process.platform !== 'darwin') {
+    app.quit();
+  }
+});
 
-  editor.init(); // Create the main 'editor' window.
+// In this file you can include the rest of your app's specific main process
+// code. You can also put them in separate files and import them here.
+
+function init() {
+  config.init();
+  main.init();
+  renderer.init();
 }

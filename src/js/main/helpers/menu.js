@@ -2,9 +2,9 @@ module.exports = { init }
 
 const { app, Menu } = require('electron');
 
-const about = require('../dialogs/about');
-const config = require('../config');
-const wizard = require('../dialogs/wizard');
+const about = require('../../renderer/dialogs/about');
+const config = require('../../config');
+const wizard = require('../../renderer/dialogs/wizard');
 
 let toggleDevTools = false;
 

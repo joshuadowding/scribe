@@ -2,10 +2,10 @@ module.exports = { checkPathExists, createDataDirectory, createDataFile, readPro
 
 const filesystem = require('fs');
 
-const Project = require('./models/project');
-const Settings = require('./models/settings');
-const File = require('./models/document');
-const Folder = require('./models/folder');
+const Project = require('./main/models/project');
+const Settings = require('./main/models/settings');
+const File = require('./main/models/document');
+const Folder = require('./main/models/folder');
 
 function checkPathExists(path) {
   filesystem.access(path, filesystem.constants.F_OK, (error) => {

@@ -4,10 +4,10 @@ const { BrowserWindow, ipcMain } = require('electron');
 const { v4: uuidv4 } = require('uuid');
 const path = require('path');
 
-const File = require('../models/document');
-const Folder = require('../models/folder');
-const config = require('../config');
-const common = require('../common');
+const File = require('../../main/models/document');
+const Folder = require('../../main/models/folder');
+const config = require('../../config');
+const common = require('../../common');
 
 let type = undefined;
 let selected = undefined;
@@ -41,7 +41,7 @@ function init(options) {
 
   window.setMenuBarVisibility(false);
 
-  window.loadFile(path.join(__dirname, '../../html/dialogs/create.html')).then(() => {
+  window.loadFile(path.join(__dirname, '../../../html/dialogs/create.html')).then(() => {
     window.webContents.send('choose-theme', config.getCurrentTheme());
   });
 

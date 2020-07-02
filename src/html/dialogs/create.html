@@ -27,7 +27,7 @@
 
     <script type="text/javascript">
       const ipc = require('electron').ipcRenderer;
-      const theme = require('../../js/helpers/theme');
+      const theme = require('../../js/main/helpers/theme');
 
       ipc.on('choose-theme', (event, message) => {
         theme.chooseTheme(message);

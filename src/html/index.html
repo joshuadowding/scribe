@@ -38,8 +38,7 @@
 
     <script type="text/javascript">
       const ipc = require('electron').ipcRenderer;
-      const theme = require('../js/helpers/theme');
-      const test = require('../js/renderer/test');
+      const theme = require('../js/main/helpers/theme');
 
       let currentSelected;
 
@@ -71,11 +70,9 @@
         $(document).mouseleave(() => { isHandlerDragging = false; });
 
         $('#editor-add').click(function() {
-          if ($('#add-dropdown').hasClass('show')) {
-            $('#add-dropdown').removeClass('show');
-          } else {
-            $('#add-dropdown').addClass('show');
-          }
+          let dropdown = $('#add-dropdown');
+          if (dropdown.hasClass('show')) { dropdown.removeClass('show'); }
+          else { dropdown.addClass('show'); }
         });
 
         $('#add-file').click(function() {
@@ -92,10 +89,7 @@
           $(this).parent().each(() => { $('.item').removeClass('selected'); });
 
           if ($(this).hasClass('selected')) { $(this).removeClass('selected'); }
-          else {
-            $(this).addClass('selected');
-            currentSelected = $(this).data('id');
-          }
+          else { $(this).addClass('selected'); currentSelected = $(this).data('id'); }
         });
       });
 
@@ -110,8 +104,9 @@
       });
 
       ipc.on('update-project', (error, data) => {
-        $('#item-list').empty(); // Empty the item-list before we re-populate it.
-        test.init(data);
+        let element = $('#item-list');
+        element.empty(); // Empty the item-list before we re-populate it.
+        ipc.send('add-item', { props: data, parent: element });
       });
     </script>
   </body>

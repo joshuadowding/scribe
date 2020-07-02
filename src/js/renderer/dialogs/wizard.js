@@ -4,9 +4,9 @@ const { BrowserWindow, ipcMain, dialog } = require('electron');
 const path = require('path');
 const change = require('on-change');
 
-const Project = require('../models/project');
-const config = require('../config');
-const common = require('../common');
+const Project = require('../../main/models/project');
+const config = require('../../config');
+const common = require('../../common');
 
 function init() {
   if (config.getWindow('Wizard')) {
@@ -34,7 +34,7 @@ function init() {
 
   window.setMenuBarVisibility(false);
 
-  window.loadFile(path.join(__dirname, '../../html/dialogs/wizard.html')).then(() => {
+  window.loadFile(path.join(__dirname, '../../../html/dialogs/wizard.html')).then(() => {
     window.webContents.send('choose-theme', config.getCurrentTheme());
   });
 

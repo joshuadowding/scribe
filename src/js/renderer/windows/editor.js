@@ -3,11 +3,13 @@ module.exports = { init, update }
 const { BrowserWindow, ipcMain, nativeTheme, dialog } = require('electron');
 const path = require('path');
 
-const Folder = require('../models/folder');
-const File = require('../models/document');
+const Folder = require('../../main/models/folder');
+const File = require('../../main/models/document');
 
-const config = require('../config');
-const menu = require('../helpers/menu');
+const Controller = require('../controllers/editor-controller');
+
+const config = require('../../config');
+const menu = require('../../main/helpers/menu');
 const wizard = require('../dialogs/wizard');
 const create = require('../dialogs/create');
 
@@ -37,7 +39,7 @@ function init() {
     config.removeWindow('Editor');
   });
 
-  window.loadFile(path.join(__dirname, '../../html/index.html')).then(() => {
+  window.loadFile(path.join(__dirname, '../../../html/index.html')).then(() => {
     nativeTheme.themeSource = 'system';
 
     menu.init();
@@ -66,6 +68,10 @@ function init() {
 
   ipcMain.on('create-folder', (event, data) => {
     create.init({ type: 'Folder', selected: data });
+  });
+
+  ipcMain.on('add-item', (event, data) => {
+    Controller.addItemToHierarchy(data.props, data.parent);
   });
 
   window.webContents.openDevTools(); // DEBUG: Disable when not required.
