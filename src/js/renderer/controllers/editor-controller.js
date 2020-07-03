@@ -1,4 +1,4 @@
-module.exports = { init, handlers, addItemToHierarchy, clearItemsInHierarchy }
+module.exports = { init, handlers }
 
 const { ipcRenderer } = require('electron');
 const React = require('react');

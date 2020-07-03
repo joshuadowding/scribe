@@ -51,54 +51,8 @@
     <script type="text/javascript" src="../../lib/jquery-3.5.1.min.js" onload="window.$ = window.jQuery = module.exports;"></script>
 
     <script type="text/javascript">
-      const ipc = require('electron').ipcRenderer;
-      const theme = require('../../js/main/helpers/theme');
-
-      ipc.on('choose-theme', (event, message) => {
-        theme.chooseTheme(message);
-      });
-
-      ipc.on('create-failure', (event, message) => {
-        // TODO: Handle invalid input.
-      });
-
-      ipc.on('path-chosen', (event, message) => {
-        $('#input-path').val(message);
-        $('#input-path-choose').val(message);
-      });
-
-      $(document).ready(function() {
-        $('.input-form').submit(function(event) {
-          event.preventDefault();
-
-          let project = new Map();
-          project.set('project-name', $('#input-name').val().toString().trim());
-          project.set('project-author', $('#input-author').val().toString().trim());
-          project.set('project-path', $('#input-path').val().toString().trim());
-
-          ipc.send('create-project', project);
-        });
-
-        $('#new-project').click(function() {
-          $('#welcome-page').removeClass('show');
-          $('#project-page').addClass('show');
-        });
-
-        $('#load-project').click(function(event) {
-          event.preventDefault();
-          ipc.send('load-project');
-        });
-
-        $('#page-back').click(function() {
-          $('#welcome-page').addClass('show');
-          $('#project-page').removeClass('show');
-        });
-
-        $('#input-path-choose').click(function(event) {
-          event.preventDefault();
-          ipc.send('choose-path');
-        });
-      });
+      const controller = require('../../js/renderer/controllers/wizard-controller');
+      $(document).ready(function() { controller.init(); controller.handlers(); });
     </script>
   </body>
 </html>
