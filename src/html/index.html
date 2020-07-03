@@ -40,6 +40,8 @@
       const ipc = require('electron').ipcRenderer;
       const theme = require('../js/main/helpers/theme');
 
+      const controller = require('../js/renderer/controllers/editor-controller');
+
       let currentSelected;
 
       $(document).ready(function() {
@@ -104,9 +106,8 @@
       });
 
       ipc.on('update-project', (error, data) => {
-        let element = $('#item-list');
-        element.empty(); // Empty the item-list before we re-populate it.
-        ipc.send('add-item', { props: data, parent: element });
+        $('#item-list').empty(); // Empty the item-list before we re-populate it.
+        controller.addItemToHierarchy(data, document.getElementById('item-list'));
       });
     </script>
   </body>

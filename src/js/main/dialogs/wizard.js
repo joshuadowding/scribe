@@ -4,7 +4,7 @@ const { BrowserWindow, ipcMain, dialog } = require('electron');
 const path = require('path');
 const change = require('on-change');
 
-const Project = require('../../main/models/project');
+const Project = require('../models/project');
 const config = require('../../config');
 const common = require('../../common');
 
