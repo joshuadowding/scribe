@@ -26,28 +26,8 @@
     <script type="text/javascript" src="../../lib/jquery-3.5.1.min.js" onload="window.$ = window.jQuery = module.exports;"></script>
 
     <script type="text/javascript">
-      const ipc = require('electron').ipcRenderer;
-      const theme = require('../../js/main/helpers/theme');
-
-      ipc.on('choose-theme', (event, message) => {
-        theme.chooseTheme(message);
-      });
-
-      ipc.on('create-failure', (event, message) => {
-        // TODO: Handle invalid input.
-      });
-
-      $(document).ready(function() {
-        $('.input-form').submit(function(event) {
-          event.preventDefault();
-          let input = $('#input-name').val().toString().trim();
-          ipc.send('form-create', input);
-        });
-
-        $('#cancel').click(function() {
-          ipc.send('form-cancel'); // Destroy the window on cancel.
-        });
-      });
+      const controller = require('../../js/renderer/controllers/create-wizard');
+      $(document).ready(function() { controller.init(); controller.handlers(); });
     </script>
   </body>
 </html>
