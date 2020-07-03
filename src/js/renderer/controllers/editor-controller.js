@@ -1,6 +1,6 @@
 module.exports = { init, handlers, addItemToHierarchy, clearItemsInHierarchy }
 
-const ipc = require('electron');
+const { ipcRenderer } = require('electron');
 const React = require('react');
 const ReactDOM = require('react-dom');
 
@@ -13,7 +13,7 @@ function init() {
   // Detect the system theme preference on start-up:
   let currentTheme = theme.detectTheme();
   theme.chooseTheme(currentTheme);
-  ipc.ipcRenderer.send('current-theme', currentTheme); // Report the detected theme preference on-startup.
+  ipcRenderer.send('current-theme', currentTheme); // Report the detected theme preference on-startup.
 
   // Allow the user to resize the editor-column elements:
   let handler = document.querySelector('.editor-handle');
@@ -43,12 +43,12 @@ function init() {
   });
 
   $('#add-file').click(function() {
-    ipc.ipcRenderer.send('create-file', currentSelected);
+    ipcRenderer.send('create-file', currentSelected);
     $('#add-dropdown').removeClass('show');
   });
 
   $('#add-folder').click(function() {
-    ipc.ipcRenderer.send('create-folder', currentSelected);
+    ipcRenderer.send('create-folder', currentSelected);
     $('#add-dropdown').removeClass('show');
   });
 
@@ -61,20 +61,20 @@ function init() {
 }
 
 function handlers() {
-  ipc.ipcRenderer.on('toggle-theme', () => {
-    ipc.ipcRenderer.send('current-theme', theme.toggleTheme());
+  ipcRenderer.on('toggle-theme', () => {
+    ipcRenderer.send('current-theme', theme.toggleTheme());
   });
 
-  ipc.ipcRenderer.on('detect-theme', () => {
+  ipcRenderer.on('detect-theme', () => {
     let currentTheme = theme.detectTheme();
     theme.chooseTheme(currentTheme);
-    ipc.ipcRenderer.send('current-theme', currentTheme);
+    ipcRenderer.send('current-theme', currentTheme);
   });
 
-  ipc.ipcRenderer.on('update-project', (error, data) => {
+  ipcRenderer.on('update-project', (error, data) => {
     //$('#item-list').empty(); // Empty the item-list before we re-populate it.
-    controller.clearItemsInHierarchy(document.getElementById('item-list'));
-    controller.addItemToHierarchy(data, document.getElementById('item-list'));
+    clearItemsInHierarchy(document.getElementById('item-list'));
+    addItemToHierarchy(data, document.getElementById('item-list'));
   });
 }
 
