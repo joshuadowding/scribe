@@ -33,11 +33,15 @@
         theme.chooseTheme(message);
       });
 
+      ipc.on('create-failure', (event, message) => {
+        // TODO: Handle invalid input.
+      });
+
       $(document).ready(function() {
         $('.input-form').submit(function(event) {
           event.preventDefault();
-          let name = $('#input-name').val(); // TODO: Sanitize input.
-          ipc.send('form-create', name);
+          let input = $('#input-name').val().toString().trim();
+          ipc.send('form-create', input);
         });
 
         $('#cancel').click(function() {

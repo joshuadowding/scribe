@@ -3,10 +3,15 @@ module.exports = { init }
 const { BrowserWindow, ipcMain, dialog } = require('electron');
 const path = require('path');
 const change = require('on-change');
+const validator = require('validator');
 
 const Project = require('../models/project');
 const config = require('../../config');
 const common = require('../../common');
+
+const INVALID_NAME = 'Warning: Invalid name. Please enter a valid name.';
+const INVALID_AUTH = 'Warning: Invalid author. Please enter a valid author.';
+const INVALID_PATH = 'Warning: Invalid path. Please enter a valid path.';
 
 function init() {
   if (config.getWindow('Wizard')) {
@@ -57,10 +62,24 @@ function init() {
   ipcMain.on('create-project', (event, message) => {
     let response = new Map(message);
 
+    let projectName = validator.escape(response.get('project-name'));
+    let projectAuthor = validator.escape(response.get('project-author'));
+    let projectPath = response.get('project-path');
+
+    if (validator.isEmpty(projectName)) {
+      window.webContents.send('create-failure', INVALID_NAME);
+      return;
+    }
+
+    if (validator.isEmpty(projectAuthor)) {
+      window.webContents.send('create-failure', INVALID_AUTH);
+      return;
+    }
+
     let project = new Project({
-      name: response.get('project-name'),
-      author: response.get('project-author'),
-      projectPath: response.get('project-path')
+      name: projectName,
+      author: projectAuthor,
+      projectPath: projectPath
     });
 
     let data = JSON.stringify(project);

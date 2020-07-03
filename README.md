@@ -20,10 +20,13 @@ An alternative word processor designed for creative writers.
 - [jsdom (16.2.2)](https://www.npmjs.com/package/jsdom)
 - [on-change (2.0.1)](https://github.com/sindresorhus/on-change)
 - [uuid (8.2.0)](https://www.npmjs.com/package/uuid)
+- [validator (13.1.1)](https://www.npmjs.com/package/validator)
 
 Note: [Difference](https://medium.com/@dylanavery720/npmmmm-1-dev-dependencies-dependencies-8931c2583b0c#:~:text=The%20difference%20between%20these%20two,an%20npm%20install%20%2D%2Dsave.)
 
 ```shell script
 npm install --save electron-compile
-npm install --save-dev electron electron-forge electron-rebuild electron-compilers react react-dom babel-preset-react node-sass jquery jsdom on-change uuid
+```
+```shell script
+npm install --save-dev electron electron-forge electron-rebuild electron-compilers react react-dom babel-preset-react node-sass jquery jsdom on-change uuid validator
 ```

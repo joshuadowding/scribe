@@ -3,6 +3,7 @@ module.exports = { init }
 const { BrowserWindow, ipcMain } = require('electron');
 const { v4: uuidv4 } = require('uuid');
 const path = require('path');
+const validator = require('validator');
 
 const File = require('../models/document');
 const Folder = require('../models/folder');
@@ -11,6 +12,8 @@ const common = require('../../common');
 
 let type = undefined;
 let selected = undefined;
+
+const INVALID_INPUT = 'Warning: Invalid name. Please enter a valid name.';
 
 function init(options) {
   if (config.getWindow('Create')) {
@@ -51,17 +54,23 @@ function init(options) {
 
   ipcMain.once('form-create', (event, message) => {
     let item = null;
+    let input = validator.escape(message);
+
+    if (validator.isEmpty(input)) {
+      window.webContents.send('create-failure', INVALID_INPUT);
+      return;
+    }
 
     if (type === 'File') {
       item = new File({
         id: uuidv4(),
-        name: message, // TODO: Sanitize input.
+        name: input,
         path: path.join(config.getCurrentProject().ProjectPath, (message + ".md"))
       });
     } else if (type === 'Folder') {
       item = new Folder({
         id: uuidv4(),
-        name: message, // TODO: Sanitize input.
+        name: input,
         path: path.join(config.getCurrentProject().ProjectPath, message)
       });
     }

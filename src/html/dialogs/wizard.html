@@ -58,6 +58,10 @@
         theme.chooseTheme(message);
       });
 
+      ipc.on('create-failure', (event, message) => {
+        // TODO: Handle invalid input.
+      });
+
       ipc.on('path-chosen', (event, message) => {
         $('#input-path').val(message);
         $('#input-path-choose').val(message);
@@ -68,9 +72,9 @@
           event.preventDefault();
 
           let project = new Map();
-          project.set('project-name', $('#input-name').val()); // TODO: Clean input (important).
-          project.set('project-author', $('#input-author').val()); // TODO: Clean input (important).
-          project.set('project-path', $('#input-path').val());
+          project.set('project-name', $('#input-name').val().toString().trim());
+          project.set('project-author', $('#input-author').val().toString().trim());
+          project.set('project-path', $('#input-path').val().toString().trim());
 
           ipc.send('create-project', project);
         });
