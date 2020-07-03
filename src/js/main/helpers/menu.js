@@ -2,7 +2,7 @@ module.exports = { init }
 
 const { app, Menu } = require('electron');
 
-const about = require('../dialogs/about');
+const { AboutDialog } = require('../dialogs/about-dialog');
 const config = require('../../config');
 const wizard = require('../dialogs/wizard');
 
@@ -14,7 +14,7 @@ let template = Menu.buildFromTemplate([
     submenu: [
       { label: 'Project Wizard', click: () => wizard.init() },
       { type: 'separator' },
-      { label: 'About', click: () => about.init() },
+      { label: 'About', click: () => new AboutDialog() },
       { label: 'Quit', role: 'close', click: () => app.quit() }
     ]
   },

@@ -1,11 +1,17 @@
-module.exports = { handlers }
-
 const { ipcRenderer } = require('electron');
 
 const theme = require('../../main/helpers/theme');
 
-function handlers() {
-  ipcRenderer.on('choose-theme', (event, message) => {
-    theme.chooseTheme(message);
-  });
+class AboutController {
+  constructor() { this.init(); }
+
+  init() { this.handlers(); }
+
+  handlers() {
+    ipcRenderer.on('choose-theme', (event, data) => {
+      theme.chooseTheme(data);
+    });
+  }
 }
+
+module.exports = { AboutController }
