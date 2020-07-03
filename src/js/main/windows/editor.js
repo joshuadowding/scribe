@@ -67,8 +67,6 @@ function init() {
   ipcMain.on('create-folder', (event, data) => {
     create.init({ type: 'Folder', selected: data });
   });
-
-  window.webContents.openDevTools(); // DEBUG: Disable when not required.
 }
 
 function update() {

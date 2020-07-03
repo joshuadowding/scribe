@@ -144,6 +144,4 @@ function init() {
       else { window.webContents.send('path-chosen', result.filePaths); }
     });
   });
-
-  //window.webContents.openDevTools(); // DEBUG: Disable when not required.
 }

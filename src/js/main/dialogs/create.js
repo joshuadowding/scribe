@@ -95,6 +95,4 @@ function init(options) {
   ipcMain.once('form-cancel', () => {
     window.destroy();
   });
-
-  //window.webContents.openDevTools(); // DEBUG: Disable when not required.
 }

@@ -38,6 +38,4 @@ function init() {
   window.webContents.on('did-finish-load', () => {
     config.addWindow('About', window);
   });
-
-  //window.webContents.openDevTools(); // DEBUG: Disable when not required.
 }
