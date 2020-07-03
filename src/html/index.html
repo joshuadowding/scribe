@@ -106,7 +106,8 @@
       });
 
       ipc.on('update-project', (error, data) => {
-        $('#item-list').empty(); // Empty the item-list before we re-populate it.
+        //$('#item-list').empty(); // Empty the item-list before we re-populate it.
+        controller.clearItemsInHierarchy(document.getElementById('item-list'));
         controller.addItemToHierarchy(data, document.getElementById('item-list'));
       });
     </script>
