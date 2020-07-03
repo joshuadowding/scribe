@@ -306,6 +306,7 @@ body {
           display: flex;
           align-items: center;
           padding: 8px;
+          cursor: default;
 
           &:hover {
             background-color: var(--foreground-colour);
