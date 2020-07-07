@@ -2,7 +2,7 @@ const { ipcRenderer } = require('electron');
 const React = require('react');
 const ReactDOM = require('react-dom');
 
-const { Item } = require('../components/item');
+const { ItemComponent } = require('../components/item-component');
 const theme = require('../../main/helpers/theme');
 
 let currentSelected;
@@ -76,7 +76,7 @@ class EditorController {
 
     ipcRenderer.on('update-project', (error, data) => {
       ReactDOM.unmountComponentAtNode(document.getElementById('item-list'));
-      ReactDOM.render(<Item items={ data } />, document.getElementById('item-list'));
+      ReactDOM.render(<ItemComponent items={ data } />, document.getElementById('item-list'));
     });
   }
 }

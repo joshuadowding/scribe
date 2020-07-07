@@ -34,7 +34,10 @@ class EditorWindow {
       minimizable: true,
       center: true,
       fullscreen: false,
-      webPreferences: { nodeIntegration: true }
+      webPreferences: {
+        nodeIntegration: true,
+        enableRemoteModule: true
+      }
     });
 
     this.window.once('closed', () => {

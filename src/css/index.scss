@@ -308,6 +308,15 @@ body {
           padding: 8px;
           cursor: default;
 
+          span {
+            display: flex;
+            align-items: center;
+
+            i {
+              margin: 0 4px 0 0;
+            }
+          }
+
           &:hover {
             background-color: var(--foreground-colour);
           }
