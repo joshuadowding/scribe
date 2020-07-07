@@ -1,30 +1,37 @@
 const React = require('react');
 
 class ItemComponent extends React.Component {
+  create(key, item) {
+    return (
+      <div key={ key } data-id={ item.id } className={`item item-${ item.type }`}>
+        { item.hierarchy ?
+          <span><i className="ri-folder-line" />{ item.name }</span> :
+          <span><i className="ri-file-line" />{ item.name }</span>
+        }
+      </div>
+    );
+  }
+  
   render() {
     let items = this.props.items;
-    let data = items.map((item, index) => (
-      <div className={`${ item.hierarchy ? "item-expand" : `item item-${ item.type }`}`}>
-        { item.hierarchy ?
-          <div key={ index } data-id={ item.id } className={`item item-${ item.type }`}>
-            <span><i className="ri-folder-line" />{ item.name }</span>
+    let data = items.map((item, index) => {
+      if (item.hierarchy && item.hierarchy.length > 0) { // It's a folder.
+        return (
+          <div className={"item-expand"}>
+            { item.hierarchy.map((child, key) => {
+              if (child.hierarchy && child.hierarchy.length > 0) {
+                return <ItemComponent items={ child.hierarchy } /> // Recurse
+              } else {
+                return this.create(key, child);
+              }
+            })}
           </div>
-          : <span><i className="ri-file-line" />{ item.name }</span>
-        }
+        );
+      } else { // It's a document.
+        return this.create(index, item);
+      }
+    });
 
-        { item.hierarchy ? item.hierarchy.map((child, i) => {
-          if (child.hierarchy && child.hierarchy.length > 0) {
-            return <ItemComponent items={ child.hierarchy } /> // Recurse
-          } else {
-            return (
-              <div key={ i } data-id={ child.id } className={`item item-${ child.type }`}>
-                { child.name }
-              </div>
-            )
-          }
-        }) : null }
-      </div>
-    ));
     return <div>{ data }</div>;
   }
 }
