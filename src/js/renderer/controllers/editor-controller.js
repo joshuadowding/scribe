@@ -75,17 +75,9 @@ class EditorController {
     });
 
     ipcRenderer.on('update-project', (error, data) => {
-      this.clearItemsInHierarchy(document.getElementById('item-list'));
-      this.addItemToHierarchy(data, document.getElementById('item-list'));
+      ReactDOM.unmountComponentAtNode(document.getElementById('item-list'));
+      ReactDOM.render(<Item items={ data } />, document.getElementById('item-list'));
     });
-  }
-
-  addItemToHierarchy(data, parent) {
-    ReactDOM.render(<Item items={data} />, parent);
-  }
-
-  clearItemsInHierarchy(parent) {
-    ReactDOM.unmountComponentAtNode(parent);
   }
 }
 

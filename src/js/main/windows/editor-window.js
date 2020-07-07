@@ -93,14 +93,14 @@ class EditorWindow {
 
         list.push({
           id: hierarchy[i]._objectID,
-          type: hierarchy[i]._objectType,
+          type: hierarchy[i]._objectType.toLowerCase(),
           name: hierarchy[i]._folderName,
           hierarchy: folderItems
         });
       } else if (hierarchy[i] instanceof File) {
         list.push({
           id: hierarchy[i]._objectID,
-          type: hierarchy[i]._objectType,
+          type: hierarchy[i]._objectType.toLowerCase(),
           name: hierarchy[i]._documentName
         });
       }
