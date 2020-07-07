@@ -9,7 +9,7 @@ const File = require('../models/document');
 const config = require('../../config');
 const menu = require('../helpers/menu');
 const wizard = require('../dialogs/wizard');
-const create = require('../dialogs/create');
+const { CreateDialog } = require('../dialogs/create-dialog');
 
 function init() {
   if (config.getWindow('Editor')) {
@@ -61,11 +61,11 @@ function init() {
   });
 
   ipcMain.on('create-file', (event, data) => {
-    create.init({ type: 'File', selected: data });
+    new CreateDialog({ type: 'File', selected: data });
   });
 
   ipcMain.on('create-folder', (event, data) => {
-    create.init({ type: 'Folder', selected: data });
+    new CreateDialog({ type: 'Folder', selected: data });
   });
 }
 

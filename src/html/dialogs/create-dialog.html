@@ -26,9 +26,8 @@
     <script type="text/javascript" src="../../lib/jquery-3.5.1.min.js" onload="window.$ = window.jQuery = module.exports;"></script>
 
     <script type="text/javascript">
-      const controller = require('../../js/renderer/controllers/create-controller');
-      $(document).ready(function() { controller.init(); });
-      controller.handlers();
+      const { CreateController } = require('../../js/renderer/controllers/create-controller');
+      $(document).ready(function() { new CreateController(); });
     </script>
   </body>
 </html>
