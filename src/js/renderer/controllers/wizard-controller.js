@@ -1,53 +1,59 @@
-module.exports = { init, handlers }
-
 const { ipcRenderer } = require('electron');
 
 const theme = require('../../main/helpers/theme');
 
-function init() {
-  $('.input-form').submit(function(event) {
-    event.preventDefault();
+class WizardController {
+  constructor() { this.init(); }
 
-    let project = new Map();
-    project.set('project-name', $('#input-name').val().toString().trim());
-    project.set('project-author', $('#input-author').val().toString().trim());
-    project.set('project-path', $('#input-path').val().toString().trim());
+  init() {
+    $('.input-form').submit(function(event) {
+      event.preventDefault();
 
-    ipcRenderer.send('create-project', project);
-  });
+      let project = new Map();
+      project.set('project-name', $('#input-name').val().toString().trim());
+      project.set('project-author', $('#input-author').val().toString().trim());
+      project.set('project-path', $('#input-path').val().toString().trim());
 
-  $('#new-project').click(function() {
-    $('#welcome-page').removeClass('show');
-    $('#project-page').addClass('show');
-  });
+      ipcRenderer.send('create-project', project);
+    });
 
-  $('#load-project').click(function(event) {
-    event.preventDefault();
-    ipcRenderer.send('load-project');
-  });
+    $('#new-project').click(function() {
+      $('#welcome-page').removeClass('show');
+      $('#project-page').addClass('show');
+    });
 
-  $('#page-back').click(function() {
-    $('#welcome-page').addClass('show');
-    $('#project-page').removeClass('show');
-  });
+    $('#load-project').click(function(event) {
+      event.preventDefault();
+      ipcRenderer.send('load-project');
+    });
 
-  $('#input-path-choose').click(function(event) {
-    event.preventDefault();
-    ipcRenderer.send('choose-path');
-  });
+    $('#page-back').click(function() {
+      $('#welcome-page').addClass('show');
+      $('#project-page').removeClass('show');
+    });
+
+    $('#input-path-choose').click(function(event) {
+      event.preventDefault();
+      ipcRenderer.send('choose-path');
+    });
+
+    this.listen();
+  }
+
+  listen() {
+    ipcRenderer.on('choose-theme', (event, message) => {
+      theme.chooseTheme(message);
+    });
+
+    ipcRenderer.on('path-chosen', (event, message) => {
+      $('#input-path').val(message);
+      $('#input-path-choose').val(message);
+    });
+
+    ipcRenderer.on('create-failure', (event, message) => {
+      // TODO: Handle invalid input.
+    });
+  }
 }
 
-function handlers() {
-  ipcRenderer.on('choose-theme', (event, message) => {
-    theme.chooseTheme(message);
-  });
-
-  ipcRenderer.on('create-failure', (event, message) => {
-    // TODO: Handle invalid input.
-  });
-
-  ipcRenderer.on('path-chosen', (event, message) => {
-    $('#input-path').val(message);
-    $('#input-path-choose').val(message);
-  });
-}
+module.exports = { WizardController }

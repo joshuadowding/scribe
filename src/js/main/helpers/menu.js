@@ -3,8 +3,8 @@ module.exports = { init }
 const { app, Menu } = require('electron');
 
 const { AboutDialog } = require('../dialogs/about-dialog');
+const { WizardDialog } = require('../dialogs/wizard-dialog');
 const config = require('../../config');
-const wizard = require('../dialogs/wizard');
 
 let toggleDevTools = false;
 
@@ -12,7 +12,7 @@ let template = Menu.buildFromTemplate([
   {
     label: 'Scribe',
     submenu: [
-      { label: 'Project Wizard', click: () => wizard.init() },
+      { label: 'Project Wizard', click: () => new WizardDialog() },
       { type: 'separator' },
       { label: 'About', click: () => new AboutDialog() },
       { label: 'Quit', role: 'close', click: () => app.quit() }

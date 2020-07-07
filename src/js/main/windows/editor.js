@@ -6,10 +6,10 @@ const path = require('path');
 const Folder = require('../models/folder');
 const File = require('../models/document');
 
+const { WizardDialog } = require('../dialogs/wizard-dialog');
+const { CreateDialog } = require('../dialogs/create-dialog');
 const config = require('../../config');
 const menu = require('../helpers/menu');
-const wizard = require('../dialogs/wizard');
-const { CreateDialog } = require('../dialogs/create-dialog');
 
 function init() {
   if (config.getWindow('Editor')) {
@@ -41,7 +41,7 @@ function init() {
     nativeTheme.themeSource = 'system';
 
     menu.init();
-    wizard.init();
+    new WizardDialog();
   });
 
   window.webContents.on('did-finish-load', () => {
