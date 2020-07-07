@@ -1,7 +1,7 @@
 module.exports = { init }
 
-const editor = require('../main/windows/editor');
+const { EditorWindow } = require('../main/windows/editor-window');
 
 function init() {
-  editor.init(); // Create the main 'editor' window.
+  new EditorWindow(); // Create the main 'editor' window.
 }

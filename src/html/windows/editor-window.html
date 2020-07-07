@@ -3,9 +3,9 @@
   <head>
     <meta charset="UTF-8">
 
-    <link type="text/css" rel="stylesheet" href="../css/index.css">
-    <link type="text/css" rel="stylesheet" href="../lib/fonts/inter/inter.css">
-    <link type="text/css" rel="stylesheet" href="../lib/fonts/remix/remixicon.css">
+    <link type="text/css" rel="stylesheet" href="../../css/index.css">
+    <link type="text/css" rel="stylesheet" href="../../lib/fonts/inter/inter.css">
+    <link type="text/css" rel="stylesheet" href="../../lib/fonts/remix/remixicon.css">
   </head>
   <body>
     <div class="editor-wrapper">
@@ -34,11 +34,11 @@
       </div>
     </div>
 
-    <script type="text/javascript" src="../lib/jquery-3.5.1.min.js" onload="window.$ = window.jQuery = module.exports;"></script>
+    <script type="text/javascript" src="../../lib/jquery-3.5.1.min.js" onload="window.$ = window.jQuery = module.exports;"></script>
 
     <script type="text/javascript">
-      const controller = require('../js/renderer/controllers/editor-controller');
-      $(document).ready(function() { controller.init(); controller.handlers(); });
+      const { EditorController } = require('../../js/renderer/controllers/editor-controller');
+      $(document).ready(function() { new EditorController(); });
     </script>
   </body>
 </html>

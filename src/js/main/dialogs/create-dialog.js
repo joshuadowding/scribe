@@ -53,6 +53,10 @@ class CreateDialog {
       this.window.webContents.send('choose-theme', config.getCurrentTheme());
     });
 
+    this.listen();
+  }
+
+  listen() {
     ipcMain.once('form-create', (event, message) => {
       let item = null;
       let input = validator.escape(message);
@@ -90,9 +94,7 @@ class CreateDialog {
       }
 
       common.writeDataFile(config.getCurrentProject().FilePath, JSON.stringify(config.getCurrentProject()));
-
       this.window.destroy();
-      //config.removeWindow('Create');
     });
 
     ipcMain.once('form-cancel', () => {

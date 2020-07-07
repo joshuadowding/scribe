@@ -65,6 +65,10 @@ class WizardDialog {
       }
     });
 
+    this.listen();
+  }
+
+  listen() {
     ipcMain.on('create-project', (event, message) => {
       let response = new Map(message);
 
