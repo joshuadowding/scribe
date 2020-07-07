@@ -52,12 +52,16 @@ class WizardDialog {
     this.window.on('close', (event) => {
       event.preventDefault();
 
-      const options = { type: 'question', buttons: ['Yes', 'No'], title: 'Quit', message: 'Are you sure you\'d like to quit Scribe?' };
-      const response = dialog.showMessageBoxSync(this.window, options);
-
-      if (response === 0) {
+      if (!config.getFirstRun()) {
         this.window.destroy();
-        config.getWindow('Editor').destroy();
+      } else {
+        const options = { type: 'question', buttons: ['Yes', 'No'], title: 'Quit', message: 'Are you sure you\'d like to quit Scribe?' };
+        const response = dialog.showMessageBoxSync(this.window, options);
+
+        if (response === 0) {
+          config.getWindow('Editor').destroy();
+          this.window.destroy();
+        }
       }
     });
 
@@ -100,6 +104,7 @@ class WizardDialog {
         ignoreSymbols: true
       }));
 
+      config.setFirstRun(false);
       config.getWindow('Editor').update();
       this.window.destroy(); // NOTE: Because we catch the 'close' event; let's just destroy it.
     });
@@ -124,6 +129,7 @@ class WizardDialog {
               ignoreSymbols: true
             }));
 
+            config.setFirstRun(false);
             config.getWindow('Editor').update();
             this.window.destroy(); // NOTE: Because we catch the 'close' event; let's just destroy it.
           } else {

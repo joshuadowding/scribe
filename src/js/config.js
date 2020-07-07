@@ -5,7 +5,8 @@ module.exports = {
   getDetectTheme, setDetectTheme,
   getCurrentProject, setCurrentProject,
   getCurrentSettings, setCurrentSettings,
-  getHomeDir, getDataDir, getConfDir
+  getHomeDir, getDataDir, getConfDir,
+  getFirstRun, setFirstRun
 }
 
 const path = require('path');
@@ -15,6 +16,8 @@ let currentTheme;
 let currentProject;
 let currentSettings;
 let detectTheme;
+
+let firstRun = true;
 
 const homeDir = require('os').homedir();
 const dataDir = path.join(homeDir, ".scribe");
@@ -84,4 +87,12 @@ function getDataDir() {
 
 function getConfDir() {
   return confDir;
+}
+
+function getFirstRun() {
+  return firstRun;
+}
+
+function setFirstRun(value) {
+  firstRun = value;
 }
