@@ -5,9 +5,9 @@ const theme = require('../../main/helpers/theme');
 class AboutController {
   constructor() { this.init(); }
 
-  init() { this.handlers(); }
+  init() { this.listen(); }
 
-  handlers() {
+  listen() {
     ipcRenderer.on('choose-theme', (event, data) => {
       theme.chooseTheme(data);
     });
