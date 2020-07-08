@@ -81,7 +81,7 @@ class CreateDialog {
       }
 
       if (item !== null) {
-        if (selected !== undefined) {
+        if (selected !== null) {
           common.getHierarchyIndex(config.getCurrentProject().Hierarchy, item, selected);
         } else { config.getCurrentProject().Hierarchy.push(item); }
       }

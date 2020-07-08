@@ -44,14 +44,22 @@ class EditorController {
     });
 
     $('#add-file').click(function() {
-      // TODO: Check if currentSelected is a file or a folder.
-      ipcRenderer.send('create-file', currentSelected);
+      if ($(currentSelected).hasClass('item-folder')) {
+        ipcRenderer.send('create-file', $(currentSelected).data('id'));
+      } else {
+        ipcRenderer.send('create-file', null);
+      }
+
       $('#add-dropdown').removeClass('show');
     });
 
     $('#add-folder').click(function() {
-      // TODO: Check if currentSelected is a file or a folder.
-      ipcRenderer.send('create-folder', currentSelected);
+      if ($(currentSelected).hasClass('item-folder')) {
+        ipcRenderer.send('create-folder', $(currentSelected).data('id'));
+      } else {
+        ipcRenderer.send('create-folder', null);
+      }
+
       $('#add-dropdown').removeClass('show');
     });
 
@@ -59,7 +67,7 @@ class EditorController {
       $(this).parent().each(() => { $('.item').removeClass('selected'); });
 
       if ($(this).hasClass('selected')) { $(this).removeClass('selected'); }
-      else { $(this).addClass('selected'); currentSelected = $(this).data('id'); }
+      else { $(this).addClass('selected'); currentSelected = $(this); }
     });
 
     this.listen();
