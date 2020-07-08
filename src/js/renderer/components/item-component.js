@@ -11,28 +11,31 @@ class ItemComponent extends React.Component {
       </div>
     );
   }
-  
-  render() {
-    let items = this.props.items;
-    let data = items.map((item, index) => {
-      if (item.hierarchy && item.hierarchy.length > 0) { // It's a folder.
-        return (
-          <div className={"item-expand"}>
-            { item.hierarchy.map((child, key) => {
-              if (child.hierarchy && child.hierarchy.length > 0) {
-                return <ItemComponent items={ child.hierarchy } /> // Recurse
-              } else {
-                return this.create(key, child);
-              }
-            })}
-          </div>
-        );
-      } else { // It's a document.
+
+  iterate(item) {
+    return item.hierarchy.map((child, key) => {
+      if (child.hierarchy && child.hierarchy.length > 0) {
+        return (<div className={"item-expand"}>{ this.create(key, child) }{ this.iterate(child) }</div>);
+      } else {
+        return this.create(key, child);
+      }
+    });
+  }
+
+  build(items) {
+    return items.map((item, index) => {
+      if (item.hierarchy && item.hierarchy.length > 0) {
+        return (<div className={"item-expand"}>{ this.create(index, item) }{ this.iterate(item) }</div>);
+      } else {
         return this.create(index, item);
       }
     });
+  }
 
-    return <div>{ data }</div>;
+  render() {
+    let items = this.props.items;
+    let data = this.build(items);
+    return <div className={'list-inner'}>{ data }</div>;
   }
 }
 
