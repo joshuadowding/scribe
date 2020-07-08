@@ -83,12 +83,17 @@ class EditorWindow {
       let item = common.getItemFromProjectHierarchy(data.id);
       console.log(item);
     });
+
+    ipcMain.on('remove-item', (event, data) => {
+      common.removeItemFromProjectHierarchy(data.id);
+    });
   }
 
   update() {
     let list = [];
     this.populate(config.getCurrentProject().Hierarchy, list);
     config.getWindow('Editor').webContents.send('update-project', list);
+    common.writeDataFile(config.getCurrentProject().FilePath, JSON.stringify(config.getCurrentProject()));
   }
 
   populate(hierarchy, list) {

@@ -64,6 +64,13 @@ class EditorController {
       $('#add-dropdown').removeClass('show');
     });
 
+    $('#editor-remove').click(function() {
+      // TODO: Confirmation message.
+      if (currentSelected !== null) {
+        ipcRenderer.send('remove-item', { id: $(currentSelected).data('id') });
+      }
+    });
+
     $('.editor-items').on('click', '.item', function() {
       $(this).parent().each(() => { $('.item').removeClass('selected'); });
 

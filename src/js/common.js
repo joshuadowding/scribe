@@ -2,7 +2,8 @@ module.exports = {
   checkPathExists, createDataDirectory,
   createDataFile, readProjectFile,
   readSettingsFile, writeDataFile,
-  addItemToHierarchy, getItemFromProjectHierarchy
+  addItemToHierarchy, getItemFromProjectHierarchy,
+  removeItemFromProjectHierarchy
 }
 
 const filesystem = require('fs');
@@ -103,6 +104,24 @@ function addItemToHierarchy(hierarchy, item, value) {
 
     if (hierarchy[i].ID === value) {
       hierarchy[i].Hierarchy.push(item);
+    }
+  }
+}
+
+function removeItemFromProjectHierarchy(id) {
+  let project = config.getCurrentProject();
+
+  searchHierarchy(project.Hierarchy, id);
+
+  function searchHierarchy(hierarchy, id) {
+    for (let i = 0; i < hierarchy.length; i++) {
+      if (hierarchy[i].Hierarchy && hierarchy[i].Hierarchy.length !== 0) {
+        searchHierarchy(hierarchy[i].Hierarchy, id); // Recurse
+      }
+
+      if (hierarchy[i].ID === id) {
+        hierarchy.splice(i, 1);
+      }
     }
   }
 }
