@@ -44,11 +44,13 @@ class EditorController {
     });
 
     $('#add-file').click(function() {
+      // TODO: Check if currentSelected is a file or a folder.
       ipcRenderer.send('create-file', currentSelected);
       $('#add-dropdown').removeClass('show');
     });
 
     $('#add-folder').click(function() {
+      // TODO: Check if currentSelected is a file or a folder.
       ipcRenderer.send('create-folder', currentSelected);
       $('#add-dropdown').removeClass('show');
     });

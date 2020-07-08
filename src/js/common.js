@@ -1,4 +1,4 @@
-module.exports = { checkPathExists, createDataDirectory, createDataFile, readProjectFile, readSettingsFile, writeDataFile }
+module.exports = { checkPathExists, createDataDirectory, createDataFile, readProjectFile, readSettingsFile, writeDataFile, getHierarchyIndex }
 
 const filesystem = require('fs');
 
@@ -86,4 +86,16 @@ function mapSettingsToObject(data) {
 
 function writeDataFile(path, data) {
   filesystem.writeFileSync(path, data, 'utf8');
+}
+
+function getHierarchyIndex(hierarchy, item, value) {
+  for (let i = 0; i < hierarchy.length; i++) {
+    if (hierarchy[i].Hierarchy && hierarchy[i].Hierarchy.length !== 0) {
+      getHierarchyIndex(hierarchy[i].Hierarchy, item, value);
+    }
+
+    if (hierarchy[i].ID === value) {
+      hierarchy[i].Hierarchy.push(item);
+    }
+  }
 }

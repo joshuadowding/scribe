@@ -82,14 +82,7 @@ class CreateDialog {
 
       if (item !== null) {
         if (selected !== undefined) {
-          let index = config.getCurrentProject().getHierarchyIndex(selected);
-          let selectedItem = config.getCurrentProject().Hierarchy[index];
-
-          if (selectedItem instanceof Folder) {
-            config.getCurrentProject().Hierarchy[index].Hierarchy.push(item);
-          } else {
-            config.getCurrentProject().Hierarchy.push(item);
-          }
+          common.getHierarchyIndex(config.getCurrentProject().Hierarchy, item, selected);
         } else { config.getCurrentProject().Hierarchy.push(item); }
       }
 
