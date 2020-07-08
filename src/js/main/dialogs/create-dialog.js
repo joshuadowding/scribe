@@ -82,7 +82,7 @@ class CreateDialog {
 
       if (item !== null) {
         if (selected !== null) {
-          common.getHierarchyIndex(config.getCurrentProject().Hierarchy, item, selected);
+          common.addItemToHierarchy(config.getCurrentProject().Hierarchy, item, selected);
         } else { config.getCurrentProject().Hierarchy.push(item); }
       }
 

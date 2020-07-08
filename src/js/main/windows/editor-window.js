@@ -7,6 +7,7 @@ const File = require('../models/document');
 const { WizardDialog } = require('../dialogs/wizard-dialog');
 const { CreateDialog } = require('../dialogs/create-dialog');
 const config = require('../../config');
+const common = require('../../common');
 const menu = require('../helpers/menu');
 
 const HTML_PATH = '../../../html/windows/editor-window.html';
@@ -76,6 +77,11 @@ class EditorWindow {
 
     ipcMain.on('create-folder', (event, data) => {
       new CreateDialog({ type: 'Folder', selected: data });
+    });
+
+    ipcMain.on('select-item', (event, data) => {
+      let item = common.getItemFromProjectHierarchy(data.id);
+      console.log(item);
     });
   }
 

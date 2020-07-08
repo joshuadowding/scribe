@@ -1,4 +1,9 @@
-module.exports = { checkPathExists, createDataDirectory, createDataFile, readProjectFile, readSettingsFile, writeDataFile, getHierarchyIndex }
+module.exports = {
+  checkPathExists, createDataDirectory,
+  createDataFile, readProjectFile,
+  readSettingsFile, writeDataFile,
+  addItemToHierarchy, getItemFromProjectHierarchy
+}
 
 const filesystem = require('fs');
 
@@ -6,6 +11,8 @@ const Project = require('./main/models/project');
 const Settings = require('./main/models/settings');
 const File = require('./main/models/document');
 const Folder = require('./main/models/folder');
+
+const config = require('./config');
 
 function checkPathExists(path) {
   filesystem.access(path, filesystem.constants.F_OK, (error) => {
@@ -88,14 +95,35 @@ function writeDataFile(path, data) {
   filesystem.writeFileSync(path, data, 'utf8');
 }
 
-function getHierarchyIndex(hierarchy, item, value) {
+function addItemToHierarchy(hierarchy, item, value) {
   for (let i = 0; i < hierarchy.length; i++) {
     if (hierarchy[i].Hierarchy && hierarchy[i].Hierarchy.length !== 0) {
-      getHierarchyIndex(hierarchy[i].Hierarchy, item, value);
+      addItemToHierarchy(hierarchy[i].Hierarchy, item, value); // Recurse
     }
 
     if (hierarchy[i].ID === value) {
       hierarchy[i].Hierarchy.push(item);
     }
   }
+}
+
+function getItemFromProjectHierarchy(id) {
+  let project = config.getCurrentProject();
+  let item = null;
+
+  searchHierarchy(project.Hierarchy, id);
+
+  function searchHierarchy(hierarchy, id) {
+    for (let i = 0; i < hierarchy.length; i++) {
+      if (hierarchy[i].Hierarchy && hierarchy[i].Hierarchy.length !== 0) {
+        searchHierarchy(hierarchy[i].Hierarchy, id); // Recurse
+      }
+
+      if (hierarchy[i].ID === id) {
+        item = hierarchy[i];
+      }
+    }
+  }
+
+  return item;
 }

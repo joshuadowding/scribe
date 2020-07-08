@@ -4,6 +4,7 @@ const ReactDOM = require('react-dom');
 
 const { ItemComponent } = require('../components/item-component');
 const theme = require('../../main/helpers/theme');
+const config = require('../../config');
 
 let currentSelected;
 
@@ -68,6 +69,12 @@ class EditorController {
 
       if ($(this).hasClass('selected')) { $(this).removeClass('selected'); }
       else { $(this).addClass('selected'); currentSelected = $(this); }
+
+      // TODO: If a document has been selected, load the content.
+      if (currentSelected.hasClass('item-file')) {
+        let id = $(currentSelected).data('id');
+        ipcRenderer.send('select-item', { id: id });
+      }
     });
 
     this.listen();
