@@ -85,7 +85,12 @@ class EditorWindow {
     });
 
     ipcMain.on('remove-item', (event, data) => {
-      common.removeItemFromProjectHierarchy(data.id);
+      const options = { type: 'question', buttons: ['Yes', 'No'], title: 'Quit', message: 'Are you sure you\'d like to remove this item?' }
+      const response = dialog.showMessageBoxSync(config.getWindow('Editor'), options);
+
+      if (response === 0) {
+        common.removeItemFromProjectHierarchy(data.id);
+      }
     });
   }
 

@@ -1,4 +1,4 @@
-const { ipcRenderer } = require('electron');
+const { ipcRenderer, dialog } = require('electron');
 const React = require('react');
 const ReactDOM = require('react-dom');
 
@@ -65,7 +65,6 @@ class EditorController {
     });
 
     $('#editor-remove').click(function() {
-      // TODO: Confirmation message.
       if (currentSelected !== null) {
         ipcRenderer.send('remove-item', { id: $(currentSelected).data('id') });
       }
