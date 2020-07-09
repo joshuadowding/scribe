@@ -81,7 +81,7 @@ class EditorWindow {
 
     ipcMain.on('select-item', (event, data) => {
       let item = common.getItemFromProjectHierarchy(data.id);
-      console.log(item);
+      console.log(common.loadDataFile(item.Path));
     });
 
     ipcMain.on('remove-item', (event, data) => {

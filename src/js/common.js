@@ -1,6 +1,6 @@
 module.exports = {
-  checkPathExists, createDataDirectory,
-  createDataFile, readProjectFile, readSettingsFile,
+  checkPathExists, createDataDirectory, createDataFile,
+  loadDataFile, readProjectFile, readSettingsFile,
   addItemToHierarchy, getItemFromProjectHierarchy,
   removeItemFromProjectHierarchy
 }
@@ -25,20 +25,32 @@ function createDataDirectory(path) {
 }
 
 function createDataFile(path, data) {
-  try { filesystem.writeFileSync(path, data, { encoding: 'utf8'}); return true; }
+  try { filesystem.writeFileSync(path, data, { encoding: 'utf8' }); return true; }
   catch (error) { return false; }
 }
 
+function loadDataFile(path) {
+  try {
+    const data = filesystem.readFileSync(path, 'utf8');
+    if (data !== undefined) { return data; }
+    else { return undefined; }
+  } catch (error) { return undefined; }
+}
+
 function readProjectFile(path) {
-  const data = filesystem.readFileSync(path, 'utf8');
-  if (data !== undefined) { return mapProjectToObject(JSON.parse(data)); }
-  else { return undefined; }
+  try {
+    const data = filesystem.readFileSync(path, 'utf8');
+    if (data !== undefined) { return mapProjectToObject(JSON.parse(data)); }
+    else { return undefined; }
+  } catch (error) { return undefined; }
 }
 
 function readSettingsFile(path) {
-  const data = filesystem.readFileSync(path, 'utf8');
-  if (data !== undefined) { return mapSettingsToObject(JSON.parse(data)); }
-  else { return undefined; }
+  try {
+    const data = filesystem.readFileSync(path, 'utf8');
+    if (data !== undefined) { return mapSettingsToObject(JSON.parse(data)); }
+    else { return undefined; }
+  } catch (error) { return undefined; }
 }
 
 function mapProjectToObject(data) {
