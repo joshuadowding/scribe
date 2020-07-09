@@ -97,7 +97,6 @@ function populateHierarchy(hierarchy, project) {
         type: hierarchy[i]._objectType,
         name: hierarchy[i]._documentName,
         path: hierarchy[i]._documentPath,
-        fileName: hierarchy[i]._fileName,
         nodes: mapToNode(hierarchy[i]._documentNodes)
       }));
     }
