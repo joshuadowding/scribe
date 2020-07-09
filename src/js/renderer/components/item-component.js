@@ -12,20 +12,10 @@ class ItemComponent extends React.Component {
     );
   }
 
-  iterate(item) {
-    return item.hierarchy.map((child, key) => {
-      if (child.hierarchy && child.hierarchy.length > 0) {
-        return (<div className={"item-expand"}>{ this.create(key, child) }{ this.iterate(child) }</div>);
-      } else {
-        return this.create(key, child);
-      }
-    });
-  }
-
   build(items) {
     return items.map((item, index) => {
       if (item.hierarchy && item.hierarchy.length > 0) {
-        return (<div className={"item-expand"}>{ this.create(index, item) }{ this.iterate(item) }</div>);
+        return (<div className={"item-expand"}>{ this.create(index, item) }{ this.build(item.hierarchy) }</div>);
       } else {
         return this.create(index, item);
       }
