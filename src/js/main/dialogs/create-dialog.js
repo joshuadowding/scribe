@@ -70,13 +70,16 @@ class CreateDialog {
         item = new File({
           id: uuidv4(),
           name: input,
-          path: path.join(config.getCurrentProject().ProjectPath, (message + ".md"))
+          path: path.join(config.getCurrentProject().ProjectPath, (input + ".md")),
+          fileName: (input + ".md")
         });
+
+        common.createDataFile(path.join(config.getCurrentProject().DocumentPath, item.FileName), '');
       } else if (type === 'Folder') {
         item = new Folder({
           id: uuidv4(),
           name: input,
-          path: path.join(config.getCurrentProject().ProjectPath, message)
+          path: path.join(config.getCurrentProject().ProjectPath, input)
         });
       }
 
@@ -86,7 +89,7 @@ class CreateDialog {
         } else { config.getCurrentProject().Hierarchy.push(item); }
       }
 
-      common.writeDataFile(config.getCurrentProject().FilePath, JSON.stringify(config.getCurrentProject()));
+      common.createDataFile(config.getCurrentProject().FilePath, JSON.stringify(config.getCurrentProject()));
       this.window.destroy();
     });
 

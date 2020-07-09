@@ -1,7 +1,6 @@
 module.exports = {
   checkPathExists, createDataDirectory,
-  createDataFile, readProjectFile,
-  readSettingsFile, writeDataFile,
+  createDataFile, readProjectFile, readSettingsFile,
   addItemToHierarchy, getItemFromProjectHierarchy,
   removeItemFromProjectHierarchy
 }
@@ -16,24 +15,18 @@ const Folder = require('./main/models/folder');
 const config = require('./config');
 
 function checkPathExists(path) {
-  filesystem.access(path, filesystem.constants.F_OK, (error) => {
-    if (error) { console.error(error.message); return false; }
-    else { return true; }
-  });
+  try { filesystem.accessSync(path, filesystem.constants.F_OK); return true; }
+  catch (error) { return false; }
 }
 
 function createDataDirectory(path) {
-  filesystem.mkdir(path, { recursive: true }, (error) => {
-    if (error) { console.error(error.message); return false; }
-    else { return true; }
-  });
+  try { filesystem.mkdirSync(path, { recursive: true }); return true; }
+  catch (error) { return false; }
 }
 
 function createDataFile(path, data) {
-  filesystem.writeFile(path, data, 'utf8', (error) => {
-    if (error) { console.error(error.message); return false; }
-    else { return true; }
-  });
+  try { filesystem.writeFileSync(path, data, { encoding: 'utf8'}); return true; }
+  catch (error) { return false; }
 }
 
 function readProjectFile(path) {
@@ -53,7 +46,8 @@ function mapProjectToObject(data) {
     name: data._projectName,
     author: data._projectAuthor,
     filePath: data._projectFilePath,
-    projectPath: data._projectPath
+    projectPath: data._projectPath,
+    documentPath: data._documentPath
   });
 
   populateHierarchy(data._projectHierarchy, project);
@@ -90,10 +84,6 @@ function mapSettingsToObject(data) {
   return new Settings({
     // TODO: Add properties as they're created.
   });
-}
-
-function writeDataFile(path, data) {
-  filesystem.writeFileSync(path, data, 'utf8');
 }
 
 function addItemToHierarchy(hierarchy, item, value) {

@@ -4,6 +4,7 @@ class Project {
   _projectFilePath;
   _projectPath;
   _projectHierarchy;
+  _documentPath;
 
   constructor(options) {
     if (options !== undefined) {
@@ -12,6 +13,7 @@ class Project {
       options['filePath'] !== undefined ? this.FilePath = options['filePath'] : this.FilePath = undefined;
       options['projectPath'] !== undefined ? this.ProjectPath = options['projectPath'] : this.ProjectPath = undefined;
       options['hierarchy'] !== undefined ? this.Hierarchy = options['hierarchy'] : this.Hierarchy = [];
+      options['documentPath'] !== undefined ? this.DocumentPath = options['documentPath'] : this.DocumentPath = undefined;
     }
   }
 
@@ -26,6 +28,9 @@ class Project {
 
   get ProjectPath() { return this._projectPath; }
   set ProjectPath(value) { this._projectPath = value; }
+
+  get DocumentPath() { return this._documentPath; }
+  set DocumentPath(value) { this._documentPath = value; }
 
   get Hierarchy() { return this._projectHierarchy; }
   set Hierarchy(value) { this._projectHierarchy = value; }

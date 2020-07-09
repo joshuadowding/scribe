@@ -1,10 +1,9 @@
-const { ipcRenderer, dialog } = require('electron');
+const { ipcRenderer } = require('electron');
 const React = require('react');
 const ReactDOM = require('react-dom');
 
 const { ItemComponent } = require('../components/item-component');
 const theme = require('../../main/helpers/theme');
-const config = require('../../config');
 
 let currentSelected;
 

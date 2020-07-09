@@ -87,10 +87,7 @@ class EditorWindow {
     ipcMain.on('remove-item', (event, data) => {
       const options = { type: 'question', buttons: ['Yes', 'No'], title: 'Quit', message: 'Are you sure you\'d like to remove this item?' }
       const response = dialog.showMessageBoxSync(config.getWindow('Editor'), options);
-
-      if (response === 0) {
-        common.removeItemFromProjectHierarchy(data.id);
-      }
+      if (response === 0) { common.removeItemFromProjectHierarchy(data.id); }
     });
   }
 
@@ -98,7 +95,7 @@ class EditorWindow {
     let list = [];
     this.populate(config.getCurrentProject().Hierarchy, list);
     config.getWindow('Editor').webContents.send('update-project', list);
-    common.writeDataFile(config.getCurrentProject().FilePath, JSON.stringify(config.getCurrentProject()));
+    common.createDataFile(config.getCurrentProject().FilePath, JSON.stringify(config.getCurrentProject()));
   }
 
   populate(hierarchy, list) {

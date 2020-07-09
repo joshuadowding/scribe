@@ -12,6 +12,7 @@ const HTML_PATH = '../../../html/dialogs/wizard-dialog.html';
 const INVALID_NAME = 'Warning: Invalid name. Please enter a valid name.';
 const INVALID_AUTH = 'Warning: Invalid author. Please enter a valid author.';
 const INVALID_PATH = 'Warning: Invalid path. Please enter a valid path.';
+const PROJ_EXISTS = 'Warning: A project has been created here already. Please select another location.';
 
 class WizardDialog {
   window;
@@ -92,15 +93,23 @@ class WizardDialog {
         projectPath: projectPath
       });
 
-      let data = JSON.stringify(project);
-      let filepath = path.join(project.ProjectPath, project.Name);
+      let filepath = project.DocumentPath = path.join(project.ProjectPath, project.Name);
       let filename = project.FilePath = path.join(filepath, project.Name + ".scri");
 
       let check = common.checkPathExists(filepath);
       if (!check) { common.createDataDirectory(filepath); }
+      else {
+        const options = { type: 'error', buttons: ['Ok'], title: 'Warning', message: PROJ_EXISTS };
+        const response = dialog.showMessageBoxSync(this.window, options);
+        if (response === 0) { return; }
+      }
 
       check = common.checkPathExists(filename);
-      if (!check) { common.createDataFile(filename, data); }
+      if (check) {
+        const options = { type: 'error', buttons: ['Ok'], title: 'Warning', message: PROJ_EXISTS };
+        const response = dialog.showMessageBoxSync(this.window, options);
+        if (response === 0) { return; }
+      }
 
       config.setCurrentProject(change(project, () => config.getWindow('Editor').update(), {
         pathAsArray: true,
@@ -109,7 +118,7 @@ class WizardDialog {
       }));
 
       config.setFirstRun(false);
-      config.getWindow('Editor').update();
+      config.getWindow('Editor').update(); // Will serialize the project object here.
       this.window.destroy(); // NOTE: Because we catch the 'close' event; let's just destroy it.
     });
 
