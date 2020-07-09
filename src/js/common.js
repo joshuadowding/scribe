@@ -11,6 +11,7 @@ const Project = require('./main/models/project');
 const Settings = require('./main/models/settings');
 const File = require('./main/models/document');
 const Folder = require('./main/models/folder');
+const Content = require('./main/models/content');
 
 const config = require('./config');
 
@@ -29,10 +30,10 @@ function createDataFile(path, data) {
   catch (error) { return false; }
 }
 
-function loadDataFile(path) {
+function loadDataFile(item, path) {
   try {
     const data = filesystem.readFileSync(path, 'utf8');
-    if (data !== undefined) { return data; }
+    if (data !== undefined) { return mapFileToContent(item, data); }
     else { return undefined; }
   } catch (error) { return undefined; }
 }
@@ -51,6 +52,14 @@ function readSettingsFile(path) {
     if (data !== undefined) { return mapSettingsToObject(JSON.parse(data)); }
     else { return undefined; }
   } catch (error) { return undefined; }
+}
+
+function mapFileToContent(item, data) {
+  return new Content({
+    id: item.ID,
+    name: item.Name,
+    content: data
+  });
 }
 
 function mapProjectToObject(data) {
