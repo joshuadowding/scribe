@@ -5,6 +5,7 @@ class Document {
   _documentType;
   _documentPath;
   _fileName;
+  _documentNodes;
 
   constructor(options) {
     if (options !== undefined) {
@@ -13,6 +14,7 @@ class Document {
       options['type'] !== undefined ? this.Type = options['type'] : this.Type = undefined;
       options['path'] !== undefined ? this.Path = options['path'] : this.Path = undefined;
       options['fileName'] !== undefined ? this.FileName = options['fileName'] : this.FileName = undefined;
+      options['nodes'] !== undefined ? this.Nodes = options['nodes'] : this.Nodes = [];
       this.ObjectType = 'File';
     }
   }
@@ -34,6 +36,9 @@ class Document {
 
   get FileName() { return this._fileName; }
   set FileName(value) { this._fileName = value; }
+
+  get Nodes() { return this._documentNodes; }
+  set Nodes(value) { this._documentNodes = value; }
 }
 
 module.exports = Document

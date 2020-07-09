@@ -75,10 +75,16 @@ class EditorController {
       if ($(this).hasClass('selected')) { $(this).removeClass('selected'); }
       else { $(this).addClass('selected'); currentSelected = $(this); }
 
-      // TODO: If a document has been selected, load the content.
       if (currentSelected.hasClass('item-file')) {
         let id = $(currentSelected).data('id');
         ipcRenderer.send('select-item', { id: id });
+      }
+    });
+
+    $('#add-node').click(function() {
+      if (currentSelected && currentSelected.hasClass('item-file')) {
+        let id = $(currentSelected).data('id');
+        ipcRenderer.send('create-node', { id: id });
       }
     });
 
@@ -99,6 +105,14 @@ class EditorController {
     ipcRenderer.on('update-project', (error, data) => {
       ReactDOM.unmountComponentAtNode(document.getElementById('item-list'));
       ReactDOM.render(<ItemComponent items={ data } />, document.getElementById('item-list'));
+    });
+
+    ipcRenderer.on('update-document', (error, data) => {
+      let nodes = JSON.parse(data.nodes);
+      for (let index = 0; index < nodes.length; index++) {
+        console.log(nodes[index]);
+        // TODO: Render each node in the editor (init markdown editor for each).
+      }
     });
   }
 }

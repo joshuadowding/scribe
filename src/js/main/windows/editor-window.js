@@ -1,8 +1,10 @@
 const { BrowserWindow, ipcMain, nativeTheme, dialog } = require('electron');
+const { v4: uuidv4 } = require('uuid');
 const path = require('path');
 
 const Folder = require('../models/folder');
 const File = require('../models/document');
+const Node = require('../models/node');
 
 const { WizardDialog } = require('../dialogs/wizard-dialog');
 const { CreateDialog } = require('../dialogs/create-dialog');
@@ -79,9 +81,20 @@ class EditorWindow {
       new CreateDialog({ type: 'Folder', selected: data });
     });
 
+    ipcMain.on('create-node', (event, data) => {
+      let node = new Node({ id: uuidv4(),  content: '' });
+      common.addNodeToDocument(node, data.id);
+      common.createDataFile(config.getCurrentProject().FilePath, JSON.stringify(config.getCurrentProject()));
+
+      let document = common.getItemFromProjectHierarchy(data.id);
+      let nodes = JSON.stringify(document.Nodes);
+      config.getWindow('Editor').send('update-document', { nodes: nodes });
+    });
+
     ipcMain.on('select-item', (event, data) => {
-      let item = common.getItemFromProjectHierarchy(data.id);
-      console.log(common.loadDataFile(item, item.Path));
+      let document = common.getItemFromProjectHierarchy(data.id);
+      let nodes = JSON.stringify(document.Nodes);
+      this.window.webContents.send('update-document', { nodes: nodes });
     });
 
     ipcMain.on('remove-item', (event, data) => {

@@ -5,6 +5,7 @@ An alternative word processor designed for creative writers.
 
 ## Dependencies
 ### Runtime
+- [easymde (2.10.1)](https://github.com/Ionaru/easy-markdown-editor#simplemde-fork)
 - [electron-compile (6.4.4)](https://www.npmjs.com/package/electron-compile)
 
 ### Development
@@ -25,7 +26,7 @@ An alternative word processor designed for creative writers.
 Note: [Difference](https://medium.com/@dylanavery720/npmmmm-1-dev-dependencies-dependencies-8931c2583b0c#:~:text=The%20difference%20between%20these%20two,an%20npm%20install%20%2D%2Dsave.)
 
 ```shell script
-npm install --save electron-compile
+npm install --save electron-compile easymde
 ```
 ```shell script
 npm install --save-dev electron electron-forge electron-rebuild electron-compilers react react-dom babel-preset-react node-sass jquery jsdom on-change uuid validator

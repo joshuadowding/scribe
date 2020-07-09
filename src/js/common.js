@@ -2,7 +2,7 @@ module.exports = {
   checkPathExists, createDataDirectory, createDataFile,
   loadDataFile, readProjectFile, readSettingsFile,
   addItemToHierarchy, getItemFromProjectHierarchy,
-  removeItemFromProjectHierarchy
+  removeItemFromProjectHierarchy, addNodeToDocument
 }
 
 const filesystem = require('fs');
@@ -12,6 +12,7 @@ const Settings = require('./main/models/settings');
 const File = require('./main/models/document');
 const Folder = require('./main/models/folder');
 const Content = require('./main/models/content');
+const Node = require('./main/models/node');
 
 const config = require('./config');
 
@@ -33,7 +34,7 @@ function createDataFile(path, data) {
 function loadDataFile(item, path) {
   try {
     const data = filesystem.readFileSync(path, 'utf8');
-    if (data !== undefined) { return mapFileToContent(item, data); }
+    if (data !== undefined) { return mapDataFileToContent(item, data); }
     else { return undefined; }
   } catch (error) { return undefined; }
 }
@@ -54,7 +55,7 @@ function readSettingsFile(path) {
   } catch (error) { return undefined; }
 }
 
-function mapFileToContent(item, data) {
+function mapDataFileToContent(item, data) {
   return new Content({
     id: item.ID,
     name: item.Name,
@@ -95,10 +96,23 @@ function populateHierarchy(hierarchy, project) {
         id: hierarchy[i]._objectID,
         type: hierarchy[i]._objectType,
         name: hierarchy[i]._documentName,
-        path: hierarchy[i]._documentPath
+        path: hierarchy[i]._documentPath,
+        fileName: hierarchy[i]._fileName,
+        nodes: mapToNode(hierarchy[i]._documentNodes)
       }));
     }
   }
+}
+
+function mapToNode(data) {
+  let nodes = [];
+  for (let index = 0; index < data.length; index++) {
+    nodes.push(new Node({
+      id: data[index]._nodeID,
+      content: data[index]._nodeContent
+    }));
+  }
+  return nodes;
 }
 
 function mapSettingsToObject(data) {
@@ -138,10 +152,9 @@ function removeItemFromProjectHierarchy(id) {
 }
 
 function getItemFromProjectHierarchy(id) {
-  let project = config.getCurrentProject();
   let item = null;
 
-  searchHierarchy(project.Hierarchy, id);
+  searchHierarchy(config.getCurrentProject().Hierarchy, id);
 
   function searchHierarchy(hierarchy, id) {
     for (let i = 0; i < hierarchy.length; i++) {
@@ -156,4 +169,20 @@ function getItemFromProjectHierarchy(id) {
   }
 
   return item;
+}
+
+function addNodeToDocument(node, id) {
+  searchHierarchy(node, config.getCurrentProject().Hierarchy, id);
+
+  function searchHierarchy(node, hierarchy, id) {
+    for (let i = 0; i < hierarchy.length; i++) {
+      if (hierarchy[i].Hierarchy && hierarchy[i].Hierarchy.length !== 0) {
+        searchHierarchy(node, hierarchy[i].Hierarchy, id); // Recurse
+      }
+
+      if (hierarchy[i].ID === id) {
+        hierarchy[i].Nodes.push(node);
+      }
+    }
+  }
 }

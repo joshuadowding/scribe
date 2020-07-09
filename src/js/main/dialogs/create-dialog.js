@@ -70,11 +70,9 @@ class CreateDialog {
         item = new File({
           id: uuidv4(),
           name: input,
-          path: path.join(config.getCurrentProject().DocumentPath, (input + ".md")),
-          fileName: (input + ".md")
+          path: path.join(config.getCurrentProject().DocumentPath, (input + ".json")),
+          fileName: (input + ".json")
         });
-
-        common.createDataFile(path.join(config.getCurrentProject().DocumentPath, item.FileName), '');
       } else if (type === 'Folder') {
         item = new Folder({
           id: uuidv4(),
