@@ -70,7 +70,7 @@ class CreateDialog {
         item = new File({
           id: uuidv4(),
           name: input,
-          path: path.join(config.getCurrentProject().ProjectPath, (input + ".md")),
+          path: path.join(config.getCurrentProject().DocumentPath, (input + ".md")),
           fileName: (input + ".md")
         });
 
