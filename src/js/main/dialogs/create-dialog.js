@@ -67,11 +67,16 @@ class CreateDialog {
       }
 
       if (type === 'File') {
+        let documentPath = path.join(config.getCurrentProject().DocumentPath, input);
+
+        let check = common.checkPathExists(documentPath);
+        if (!check) { common.createDataDirectory(documentPath); }
+        else {} // TODO: Handle folder exists.
+
         item = new File({
           id: uuidv4(),
           name: input,
-          path: path.join(config.getCurrentProject().DocumentPath, (input + ".json")),
-          fileName: (input + ".json")
+          path: documentPath,
         });
       } else if (type === 'Folder') {
         item = new Folder({

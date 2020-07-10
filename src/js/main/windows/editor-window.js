@@ -83,10 +83,15 @@ class EditorWindow {
 
     ipcMain.on('create-node', (event, data) => {
       let node = new Node({ id: uuidv4(),  content: '' });
+      let document = common.getItemFromProjectHierarchy(data.id);
+
+      let nodePath = path.join(document.Path, (document.Nodes.length + '.md'));
+      node.ContentPath = nodePath;
       common.addNodeToDocument(node, data.id);
+
+      common.createDataFile(nodePath, '');
       common.createDataFile(config.getCurrentProject().FilePath, JSON.stringify(config.getCurrentProject()));
 
-      let document = common.getItemFromProjectHierarchy(data.id);
       let nodes = JSON.stringify(document.Nodes);
       config.getWindow('Editor').send('update-document', { nodes: nodes });
     });
