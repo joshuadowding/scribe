@@ -19,7 +19,7 @@ class NodeComponent extends React.Component {
   render() {
     let nodes = this.props.nodes;
     let data = this.build(nodes);
-    return <div className={'node-inner'}>{ data }</div>;
+    return <div className={'content-inner'}>{ data }</div>;
   }
 }
 
