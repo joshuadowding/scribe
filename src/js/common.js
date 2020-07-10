@@ -108,7 +108,8 @@ function mapToNode(data) {
   for (let index = 0; index < data.length; index++) {
     nodes.push(new Node({
       id: data[index]._nodeID,
-      content: data[index]._nodeContent
+      content: data[index]._nodeContent,
+      contentPath: data[index]._nodeContentPath
     }));
   }
   return nodes;

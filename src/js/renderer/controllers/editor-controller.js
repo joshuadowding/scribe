@@ -3,6 +3,7 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 
 const { ItemComponent } = require('../components/item-component');
+const { NodeComponent } = require('../components/node-component');
 const theme = require('../../main/helpers/theme');
 
 let currentSelected;
@@ -109,10 +110,8 @@ class EditorController {
 
     ipcRenderer.on('update-document', (error, data) => {
       let nodes = JSON.parse(data.nodes);
-      for (let index = 0; index < nodes.length; index++) {
-        console.log(nodes[index]);
-        // TODO: Render each node in the editor (init markdown editor for each).
-      }
+      ReactDOM.unmountComponentAtNode(document.getElementById('content-editor'));
+      ReactDOM.render(<NodeComponent nodes={ nodes } />, document.getElementById('content-editor'));
     });
   }
 }

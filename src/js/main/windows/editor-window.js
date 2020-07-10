@@ -92,14 +92,11 @@ class EditorWindow {
       common.createDataFile(nodePath, '');
       common.createDataFile(config.getCurrentProject().FilePath, JSON.stringify(config.getCurrentProject()));
 
-      let nodes = JSON.stringify(document.Nodes);
-      config.getWindow('Editor').send('update-document', { nodes: nodes });
+      this.refresh(data); // Fetch the document again, this time with updated nodes.
     });
 
     ipcMain.on('select-item', (event, data) => {
-      let document = common.getItemFromProjectHierarchy(data.id);
-      let nodes = JSON.stringify(document.Nodes);
-      this.window.webContents.send('update-document', { nodes: nodes });
+      this.refresh(data);
     });
 
     ipcMain.on('remove-item', (event, data) => {
@@ -139,6 +136,18 @@ class EditorWindow {
         });
       }
     }
+  }
+
+  refresh(data) {
+    let document = common.getItemFromProjectHierarchy(data.id);
+
+    for (let index = 0; index < document.Nodes.length; index++) {
+      let model = common.loadDataFile(document, document.Nodes[index].ContentPath);
+      document.Nodes[index].Content = model.Content;
+    }
+
+    let nodes = JSON.stringify(document.Nodes);
+    this.window.webContents.send('update-document', { nodes: nodes });
   }
 }
 
