@@ -46,7 +46,7 @@
     }
   },
   "dependencies": {
-    "easymde": "^2.10.1",
+    "easymde": "^2.14.0",
     "electron-compile": "^6.4.4",
     "electron-squirrel-startup": "^1.0.0"
   },
@@ -57,16 +57,18 @@
     "@electron-forge/maker-squirrel": "6.0.0-beta.51",
     "@electron-forge/maker-zip": "6.0.0-beta.51",
     "babel-preset-react": "^6.24.1",
-    "electron": "9.0.5",
+    "electron": "^9.0.5",
     "electron-compilers": "^5.9.0",
+    "electron-forge": "^5.2.4",
+    "electron-prebuilt-compile": "8.2.0",
     "electron-rebuild": "^1.11.0",
     "jquery": "^3.5.1",
-    "jsdom": "^16.2.2",
+    "jsdom": "^16.4.0",
     "node-sass": "^4.14.1",
-    "on-change": "^2.0.1",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "uuid": "^8.2.0",
-    "validator": "^13.1.1"
+    "on-change": "^2.2.3",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
+    "uuid": "^8.3.2",
+    "validator": "^13.5.2"
   }
 }
