@@ -3,65 +3,34 @@
   "productName": "scribe-app",
   "version": "1.0.0",
   "description": "An alternative word processor designed for creative writers.",
-  "main": "src/main.js",
-  "scripts": {
-    "dev-start": "electron-forge start",
-    "dev-package": "electron-forge package",
-    "dev-make": "electron-forge make",
-    "dev-publish": "electron-forge publish",
-    "dev-lint": "echo \"No linting configured\"",
-    "dev-watch": "node-sass --output-style compressed --watch src/css -o src/css"
-  },
-  "keywords": [],
   "author": {
     "name": "Joshua Dowding",
     "email": "joshuadowding@outlook.com"
   },
   "license": "MIT",
-  "config": {
-    "forge": {
-      "packagerConfig": {},
-      "makers": [
-        {
-          "name": "@electron-forge/maker-squirrel",
-          "config": {
-            "name": "scribe_app"
-          }
-        },
-        {
-          "name": "@electron-forge/maker-zip",
-          "platforms": [
-            "darwin"
-          ]
-        },
-        {
-          "name": "@electron-forge/maker-deb",
-          "config": {}
-        },
-        {
-          "name": "@electron-forge/maker-rpm",
-          "config": {}
-        }
-      ]
-    }
+  "main": "src/main.js",
+  "scripts": {
+    "dev-start": "electron-webpack dev",
+    "dev-compile": "electron-webpack",
+    "dev-dist": "yarn compile && electron-builder",
+    "dev-dist:dir": "yarn dist --dir -c.compression=store -c.mac.identity=null",
+    "dev-sass:watch": "node-sass --output-style compressed --watch src/css -o src/css"
   },
   "dependencies": {
     "easymde": "^2.14.0",
     "electron-compile": "^6.4.4",
-    "electron-squirrel-startup": "^1.0.0"
+    "electron-squirrel-startup": "^1.0.0",
+    "source-map-support": "^0.5.19"
   },
   "devDependencies": {
-    "@electron-forge/cli": "6.0.0-beta.54",
-    "@electron-forge/maker-deb": "6.0.0-beta.54",
-    "@electron-forge/maker-rpm": "6.0.0-beta.54",
-    "@electron-forge/maker-squirrel": "6.0.0-beta.54",
-    "@electron-forge/maker-zip": "6.0.0-beta.54",
+    "@babel/plugin-proposal-class-properties": "^7.12.13",
     "babel-preset-react": "^6.24.1",
     "electron": "^11.2.3",
+    "electron-builder": "^22.9.1",
     "electron-compilers": "^5.9.0",
-    "electron-forge": "^5.2.4",
     "electron-prebuilt-compile": "8.2.0",
     "electron-rebuild": "^2.3.5",
+    "electron-webpack": "^2.8.2",
     "jquery": "^3.5.1",
     "jsdom": "^16.4.0",
     "node-sass": "^5.0.0",
@@ -69,6 +38,18 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "uuid": "^8.3.2",
-    "validator": "^13.5.2"
+    "validator": "^13.5.2",
+    "webpack": "~4.46.0"
+  },
+  "electronWebpack": {
+    "commonSourceDirectory": "src/js",
+    "staticSourceDirectory": "",
+    "main": {
+      "sourceDirectory": "src/js/main"
+    },
+    "renderer": {
+      "sourceDirectory": "src/js/renderer",
+      "template": "src/js/main/windows/editor-window.js"
+    }
   }
 }

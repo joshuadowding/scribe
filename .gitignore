@@ -89,6 +89,7 @@ typings/
 .webpack/
 
 # Electron-Forge
+dist/
 out/
 
 # User-specific stuff
